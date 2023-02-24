@@ -8836,6 +8836,8 @@ MonoBehaviour:
   reverseAccel: 4
   maxSpeed: 50
   turnStrength: 180
+  timer: 0
+  speedTimer: 0
 --- !u!4 &1667332869
 Transform:
   m_ObjectHideFlags: 0
