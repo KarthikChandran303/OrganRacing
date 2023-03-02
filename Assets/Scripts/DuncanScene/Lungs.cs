@@ -10,12 +10,7 @@ public class Lungs : MonoBehaviour
 
     public Transform bloodCellSpawnLocation;
 
-    private int generationRate = 2;
-
-    private void Start()
-    {
-        InvokeRepeating("GenerateOxygenatedBloodCell", 0, generationRate);
-    }
+    private int generationRate = 7;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,17 +18,24 @@ public class Lungs : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             bloodCellStorage += BloodCellManager.instance.DeliverUnoxygenatedCells();
+
+            if (bloodCellStorage > 0)
+            {
+                Invoke("GenerateOxygenatedBloodCell", generationRate);
+            }
         }
     }
 
     private void GenerateOxygenatedBloodCell()
     {
+        bloodCellStorage--;
+        GameObject cell = Instantiate(bloodCellPrefab);
+        cell.transform.position = bloodCellSpawnLocation.position;
+
+        // Generate another blood cell if there are more to reoxygenate
         if (bloodCellStorage > 0)
         {
-            bloodCellStorage--;
-            GameObject cell = Instantiate(bloodCellPrefab);
-            cell.transform.position = bloodCellSpawnLocation.position;
-            Debug.Log("yeah!!!!!");
+            Invoke("GenerateOxygenatedBloodCell", generationRate);
         }
     }
 }

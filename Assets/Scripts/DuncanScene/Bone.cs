@@ -8,11 +8,11 @@ public class Bone : MonoBehaviour
 
     public Transform bloodCellSpawnLocation;
 
-    private int generationRate = 5;
+    private int generationRate = 20;
 
     private void Start()
     {
-        InvokeRepeating("GenerateBloodCell", 5, generationRate);
+        InvokeRepeating("GenerateBloodCell", generationRate, generationRate);
     }
 
     private void GenerateBloodCell()
