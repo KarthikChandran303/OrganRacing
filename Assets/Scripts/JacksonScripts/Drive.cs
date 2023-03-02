@@ -105,10 +105,16 @@ public class Drive : MonoBehaviour
         }
     }
 
-    public void onCollisionEnter(Collision col) {
+    public void OnCollisionEnter(Collision col) {
+/*        Debug.Log("hello");
         if (col.gameObject.tag == "Booster") {
-            isSpeedBoosted = true;
-            boostTime = 3;
-        }
+
+        }*/
+    }
+
+    public void ApplySpeedBoost()
+    {
+        isSpeedBoosted = true;
+        boostTime = 3;
     }
 }
