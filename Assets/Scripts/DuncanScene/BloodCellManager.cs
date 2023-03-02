@@ -28,6 +28,21 @@ public class BloodCellManager : MonoBehaviour
         UpdateLabels();
     }
 
+    public void AddUnoxyBloodCell(int amount = 1)
+    {
+        unoxyBloodCellCount += amount;
+        UpdateLabels();
+    }
+
+    public void UseBloodCell(int amount = 1)
+    {
+        if (amount > oxyBloodCellCount)
+            amount = oxyBloodCellCount;
+
+        oxyBloodCellCount -= amount;
+        UpdateLabels();
+    }
+
     /// <summary>
     /// Uses the given number of oxygenated blood cells and returns the amount used.
     /// If the requested amount exceeeds the total number of oxygenated blood cells,
