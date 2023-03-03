@@ -12,12 +12,12 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Minimap
+  - Item
+  - BloodCellProjectile
   - whatIsGround
-  - 
+  - Organ
   - 
   - 
   - 
