@@ -15,6 +15,8 @@ public class Drive : MonoBehaviour
     public float driftTime = 0;
     public bool drifting = false;
     public bool isSpeedBoosted = false;
+    public bool isSpeedReduced = false;
+
     public bool driftCheck = false;
     public float boostTime = 0;
     private float speedInput;
@@ -74,11 +76,12 @@ public class Drive : MonoBehaviour
             if (drifting) speedBoost();
         }
 
-        if (isSpeedBoosted) {
+        if (isSpeedBoosted || isSpeedReduced) {
             if (boostTime > 0) {
                 boostTime = boostTime - Time.deltaTime;
             }
             else {
+                isSpeedReduced = false;
                 isSpeedBoosted = false;
             }
         }
@@ -106,6 +109,9 @@ public class Drive : MonoBehaviour
             if (isSpeedBoosted) {
                 sphere.AddForce(transform.forward * 1.5f * speedInput);
             }
+            else if (isSpeedReduced) {
+                sphere.AddForce(transform.forward * 0.5f * speedInput);
+            }
             else {
                 sphere.AddForce(transform.forward * speedInput);
             }
@@ -122,6 +128,14 @@ public class Drive : MonoBehaviour
     public void ApplySpeedBoost()
     {
         isSpeedBoosted = true;
+        isSpeedReduced = false;
+        boostTime = 3;
+    }
+
+    public void ApplySpeedReduction()
+    {
+        isSpeedReduced = true;
+        isSpeedBoosted = false;
         boostTime = 3;
     }
 }
