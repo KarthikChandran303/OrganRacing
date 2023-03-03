@@ -47,8 +47,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //pathCreator = currentGround.GetComponentInChildren<PathCreator>();
-        if (GameManager.Instance.gameRunning)
-        {
+        //if (GameManager.Instance.gameRunning)
+        //{
             speed += Time.deltaTime * acceleration;
 
             //Allow Player to rotate
@@ -75,21 +75,21 @@ public class PlayerMovement : MonoBehaviour
             {
                 isHoldingJump = true;
                 jumpTimer = 0f;
-                SoundManager.Instance.PlaySound(SoundManager.Instance.jumpSound);
+                //SoundManager.Instance.PlaySound(SoundManager.Instance.jumpSound);
             }
             if (Input.GetButtonUp("Jump") || jumpTimer >= maxJumpTime)
             {
                 jumpTimer = 0f;
                 isHoldingJump = false;
             }
-        }
+        //}
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GameManager.Instance.gameRunning)
-        {
+        //if (GameManager.Instance.gameRunning)
+        //{
 
             //Move the player forward
             //Vector3 currPos = this.transform.position;
@@ -105,8 +105,6 @@ public class PlayerMovement : MonoBehaviour
                 gravity *= gravForce;
                 if (rb.transform.localPosition.y >= restPos.localPosition.y)
                 {
-                    Debug.Log("RB: " + rb.transform.localPosition.y + " | REST: " + restPos.localPosition.y);
-                    Debug.Log(gravity);
                     rb.AddForce(gravity);
                 }
             }
@@ -173,10 +171,10 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-        }
+        //}
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         //Debug.Log(other.gameObject);
         if (other.gameObject.layer == 6) //Ground layer is 6
