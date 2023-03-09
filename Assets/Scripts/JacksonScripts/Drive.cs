@@ -9,17 +9,17 @@ public class Drive : MonoBehaviour
     public float forwardAccel = 8f;
     public float reverseAccel = 4f;
     public float turnStrength = 60f;
-    public float driftStrength = 130f;
+    public float driftStrength = 120f;
     public float timer = 0;
     public float speedTimer = 0;
     public float driftTime = 0;
     public bool drifting = false;
     public bool isSpeedBoosted = false;
+    public bool driftCheck = false;
     public float boostTime = 0;
     private float speedInput;
     private float turnInput;
     private float driftDirection;
-
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +36,18 @@ public class Drive : MonoBehaviour
         } 
         else if (Input.GetAxis("Vertical") < 0) {
             speedInput = Input.GetAxis("Vertical") * reverseAccel * 1000f;
+            drifting = false;
         } 
         turnInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown("space") && !drifting && turnInput != 0) {
+        if (Input.GetKeyDown("space")) {
+            driftCheck = true;
+        }
+
+        if (driftCheck && !drifting && turnInput != 0) {
             drifting = true;
             driftDirection = turnInput;
+            driftCheck = false;
         } 
         else {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f, turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
@@ -64,7 +70,8 @@ public class Drive : MonoBehaviour
         }
 
         if (Input.GetKeyUp("space") && drifting) {
-            speedBoost();
+            driftCheck = false;
+            if (drifting) speedBoost();
         }
 
         if (isSpeedBoosted) {
@@ -97,7 +104,7 @@ public class Drive : MonoBehaviour
     private void FixedUpdate() {
         if (Mathf.Abs(speedInput) > 0) {
             if (isSpeedBoosted) {
-                sphere.AddForce(transform.forward * 2 * speedInput);
+                sphere.AddForce(transform.forward * 1.5f * speedInput);
             }
             else {
                 sphere.AddForce(transform.forward * speedInput);
@@ -105,10 +112,16 @@ public class Drive : MonoBehaviour
         }
     }
 
-    public void onCollisionEnter(Collision col) {
+    public void OnCollisionEnter(Collision col) {
+/*        Debug.Log("hello");
         if (col.gameObject.tag == "Booster") {
-            isSpeedBoosted = true;
-            boostTime = 3;
-        }
+
+        }*/
+    }
+
+    public void ApplySpeedBoost()
+    {
+        isSpeedBoosted = true;
+        boostTime = 3;
     }
 }
