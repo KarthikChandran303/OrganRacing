@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Drive : MonoBehaviour
 {
 
@@ -75,6 +75,9 @@ public class Drive : MonoBehaviour
         if (Input.GetKeyUp("space") && drifting) {
             driftCheck = false;
             if (drifting) speedBoost();
+        }
+        if (Input.GetKeyDown("escape")) {
+            SceneManager.LoadScene("Title");
         }
 
         if (isSpeedBoosted || isSpeedReduced) {
