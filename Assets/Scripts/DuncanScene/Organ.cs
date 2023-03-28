@@ -26,6 +26,7 @@ public class Organ : MonoBehaviour
 
     public Transform bloodCellSpawnLocation;
 
+    public HeartRate heartManager;
 
     protected void Start()
     {
@@ -35,7 +36,7 @@ public class Organ : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        health -= healthLossRate * Time.deltaTime;
+        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100);
 
         healthLabel.text = organName + " Health: " + (int) health;
 

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Drive : MonoBehaviour
 {
 
@@ -22,6 +22,7 @@ public class Drive : MonoBehaviour
     private float speedInput;
     private float turnInput;
     private float driftDirection;
+    public HeartRate heartManager;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +35,10 @@ public class Drive : MonoBehaviour
     {
         speedInput = 0f;
         if (Input.GetAxis("Vertical") > 0) {
-            speedInput = Input.GetAxis("Vertical") * forwardAccel * 1000f;
+            speedInput = Input.GetAxis("Vertical") * forwardAccel * 1500f;
         } 
         else if (Input.GetAxis("Vertical") < 0) {
-            speedInput = Input.GetAxis("Vertical") * reverseAccel * 1000f;
+            speedInput = Input.GetAxis("Vertical") * reverseAccel * 1500f;
             drifting = false;
         } 
         turnInput = Input.GetAxis("Horizontal");
@@ -75,6 +76,9 @@ public class Drive : MonoBehaviour
             driftCheck = false;
             if (drifting) speedBoost();
         }
+        if (Input.GetKeyDown("escape")) {
+            SceneManager.LoadScene("Title");
+        }
 
         if (isSpeedBoosted || isSpeedReduced) {
             if (boostTime > 0) {
@@ -105,15 +109,16 @@ public class Drive : MonoBehaviour
     }
 
     private void FixedUpdate() {
+        float heartSpeed = heartManager.getCurrentRate() / 100;
         if (Mathf.Abs(speedInput) > 0) {
             if (isSpeedBoosted) {
-                sphere.AddForce(transform.forward * 1.5f * speedInput);
+                sphere.AddForce(transform.forward * 1.5f * speedInput * heartSpeed);
             }
             else if (isSpeedReduced) {
-                sphere.AddForce(transform.forward * 0.5f * speedInput);
+                sphere.AddForce(transform.forward * 0.5f * speedInput * heartSpeed);
             }
             else {
-                sphere.AddForce(transform.forward * speedInput);
+                sphere.AddForce(transform.forward * speedInput * heartSpeed);
             }
         }
     }
