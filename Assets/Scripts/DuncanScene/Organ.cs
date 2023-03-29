@@ -36,7 +36,7 @@ public class Organ : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100);
+        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100) * heartManager.heartDeteriorationFactor;
 
         healthLabel.text = organName + " Health: " + (int) health;
 

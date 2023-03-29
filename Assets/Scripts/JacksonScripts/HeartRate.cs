@@ -16,6 +16,8 @@ public class HeartRate : MonoBehaviour
 
     float eatingHeartRate = 100;
 
+    public float heartDeteriorationFactor = 1;
+
     [SerializeField] TMP_Text UILabel;
 
     // Start is called before the first frame update
