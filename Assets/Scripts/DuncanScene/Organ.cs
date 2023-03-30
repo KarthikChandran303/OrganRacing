@@ -10,9 +10,7 @@ public class Organ : MonoBehaviour
 
     public float health;
 
-    public float healthLossRate = 0.05f;
-
-    public float bloodCellValue = 10f;
+    public float healthLossRate = 0.5f;
 
     public string organName = "Heart";
 
@@ -26,38 +24,39 @@ public class Organ : MonoBehaviour
 
     public Transform bloodCellSpawnLocation;
 
+    public HeartRate heartManager;
 
-    private void Start()
+    protected void Start()
     {
         health = maxHealth;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
-        health -= healthLossRate * Time.deltaTime;
+        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100) * heartManager.heartDeteriorationFactor;
+        if (health < 0)
+            health = 0;
 
-        healthLabel.text = name + " Health: " + (int) health;
+        healthLabel.text = organName + " Health: " + (int) health;
 
         healthBarSprite.fillAmount = health / maxHealth;
+
+        HealthEffects();
+    }
+
+    protected virtual void HealthEffects()
+    {
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-/*        // Player collides with this organ
-        if (other.gameObject.layer == 6)
-        {
-            float amount = (maxHealth - health) / bloodCellValue;
-
-            int bloodAmountUsed = BloodCellManager.instance.UseOxygen((int)amount);
-
-            health += bloodCellValue * bloodAmountUsed;
-        }*/
 
         // BloodCellProjectile collides with this organ
         if (other.gameObject.layer == 9)
         {
-            health += bloodCellValue;
+            health += heartManager.bloodCellEffectiveness;
 
             Destroy(other.gameObject);
 
