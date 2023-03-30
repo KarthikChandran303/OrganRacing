@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BloodCellProjectile : MonoBehaviour
 {
+    public HeartRate heartManager;
+
     [SerializeField] GameObject bloodCell;
 
     Rigidbody rb;
@@ -18,8 +20,9 @@ public class BloodCellProjectile : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        rb.velocity = transform.forward * speed;
+    {   
+        float heartSpeed = heartManager.getCurrentRate() / 100;
+        rb.velocity = transform.forward * speed * heartSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
