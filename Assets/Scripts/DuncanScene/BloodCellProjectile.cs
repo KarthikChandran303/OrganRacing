@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BloodCellProjectile : MonoBehaviour
 {
+    public HeartRate heartManager;
+
     [SerializeField] GameObject bloodCell;
 
     Rigidbody rb;
@@ -14,12 +16,14 @@ public class BloodCellProjectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        heartManager = GameObject.FindGameObjectWithTag("HeartManager").GetComponent<HeartRate>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        rb.velocity = transform.forward * speed;
+    {   
+        float heartSpeed = heartManager.getCurrentRate() / 100;
+        rb.velocity = transform.forward * speed * heartSpeed * 1.5f;
     }
 
     private void OnTriggerEnter(Collider other)
