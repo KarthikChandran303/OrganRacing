@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 312
     height: 722.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 261.6
     height: 441.6
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -438,22 +438,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/DuncanScene
+    - Assets/Prefabs/DuncanScene
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/DuncanScene
+  - Assets/Prefabs/DuncanScene
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\ender\CSC482\OrganRacing
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 15.800018}
-    m_SelectedIDs: 22720000
-    m_LastClickedID: 29218
-    m_ExpandedIDs: 0000000006720000087200001e72000000ca9a3b
+    m_SelectedIDs: c4720000
+    m_LastClickedID: 29380
+    m_ExpandedIDs: 0000000052720000547200006a72000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -481,7 +481,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000672000008720000
+    m_ExpandedIDs: 000000005272000054720000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -572,7 +572,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 346.40002
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -608,10 +608,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a0210000
-      m_LastClickedID: 0
-      m_ExpandedIDs: 1afbffff
+      scrollPos: {x: 0, y: 48.399994}
+      m_SelectedIDs: d46a0000
+      m_LastClickedID: 27348
+      m_ExpandedIDs: d8faffffa2700000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -893,9 +893,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 585.1295, y: -272.11993, z: 528.66895}
+    m_Target: {x: -756.1305, y: -1360.6343, z: 1365.2048}
     speed: 2
-    m_Value: {x: 1.20644, y: -10.663344, z: 7.9451423}
+    m_Value: {x: -756.1305, y: -1360.6343, z: 1365.2048}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -942,13 +942,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.15708461, y: -0.18232189, z: 0.02957434, w: -0.9703009}
+    m_Target: {x: -0.24055135, y: 0.2557952, z: -0.06579136, w: -0.934159}
     speed: 2
-    m_Value: {x: -0.15706299, y: -0.1822968, z: 0.029570268, w: -0.97016734}
+    m_Value: {x: -0.24051797, y: 0.25575972, z: -0.065782234, w: -0.9340294}
   m_Size:
-    m_Target: 716.228
+    m_Target: 1528.195
     speed: 2
-    m_Value: 2.6647847
+    m_Value: 1528.195
   m_Ortho:
     m_Target: 0
     speed: 2
