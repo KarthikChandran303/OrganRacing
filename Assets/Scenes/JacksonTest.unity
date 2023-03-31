@@ -428,7 +428,6 @@ MonoBehaviour:
   maxHealth: 100
   health: 0
   healthLossRate: 0.5
-  bloodCellValue: 10
   organName: Heart
   healthLabel: {fileID: 1531807088}
   healthBarSprite: {fileID: 388972450}
@@ -1899,15 +1898,15 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
-  bloodCellValue: 10
   organName: Pulmanory Muscle
   healthLabel: {fileID: 1435849158}
   healthBarSprite: {fileID: 1943617515}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
   bloodCellSpawnLocation: {fileID: 1670205642}
   heartManager: {fileID: 837583037}
-  cholesterolPositions: {fileID: 0}
-  cholesterolPrefab: {fileID: 0}
+  boostPositions: {fileID: 201218914}
+  boostPrefab: {fileID: 8364358566375395921, guid: b712e881820bb9e4c870c46901c87b06, type: 3}
+  boostDeleteRate: 5
 --- !u!1 &106678660
 GameObject:
   m_ObjectHideFlags: 0
@@ -5184,7 +5183,6 @@ MonoBehaviour:
   health: 100
   healthLossRate: 0.5
   organName: Liver
-  bloodCellUseRate: 2
   healthLabel: {fileID: 1650156177}
   healthBarSprite: {fileID: 62241978}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
@@ -5192,7 +5190,6 @@ MonoBehaviour:
   heartManager: {fileID: 837583037}
   cholesterolPositions: {fileID: 938916880}
   cholesterolPrefab: {fileID: 3247316246536641906, guid: 0d1ae5383ba271e46a38f29aefbc7fc4, type: 3}
-  dying: 0
   cholesterolGenRate: 5
 --- !u!135 &467953111
 SphereCollider:
@@ -6302,7 +6299,6 @@ MonoBehaviour:
   health: 100
   healthLossRate: 0.5
   organName: Heart
-  bloodCellUseRate: 2
   healthLabel: {fileID: 477698158}
   healthBarSprite: {fileID: 1338460585}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
@@ -8318,6 +8314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bbffd621fe4ff48b97cadbee8e149f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartDeteriorationFactor: 1
+  bloodCellEffectiveness: 10
   UILabel: {fileID: 292883293}
 --- !u!4 &837583038
 Transform:
@@ -14575,7 +14573,6 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
-  bloodCellValue: 10
   organName: Brain
   healthLabel: {fileID: 1473515494}
   healthBarSprite: {fileID: 453837800}
@@ -15570,7 +15567,6 @@ MonoBehaviour:
   health: 100
   healthLossRate: 0.5
   organName: Kidneys
-  bloodCellUseRate: 2
   healthLabel: {fileID: 421893101}
   healthBarSprite: {fileID: 1354183952}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
