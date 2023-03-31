@@ -12,8 +12,6 @@ public class Organ : MonoBehaviour
 
     public float healthLossRate = 0.5f;
 
-    public float bloodCellValue = 10f;
-
     public string organName = "Heart";
 
     private float bloodCellUseRate = 2f;
@@ -28,7 +26,6 @@ public class Organ : MonoBehaviour
 
     public HeartRate heartManager;
 
-
     protected void Start()
     {
         health = maxHealth;
@@ -37,7 +34,9 @@ public class Organ : MonoBehaviour
     // Update is called once per frame
     protected void Update()
     {
-        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100);
+        health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100) * heartManager.heartDeteriorationFactor;
+        if (health < 0)
+            health = 0;
 
         healthLabel.text = organName + " Health: " + (int) health;
 
@@ -57,7 +56,7 @@ public class Organ : MonoBehaviour
         // BloodCellProjectile collides with this organ
         if (other.gameObject.layer == 9)
         {
-            health += bloodCellValue;
+            health += heartManager.bloodCellEffectiveness;
 
             Destroy(other.gameObject);
 

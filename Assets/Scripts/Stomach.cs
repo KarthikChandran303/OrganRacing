@@ -30,7 +30,6 @@ public class Stomach : Organ
 
     private void StomachDying()
     {
-        Debug.Log("im dying bro (STOMACH STOMACH STOMACH STOMACH)!!!!");
         foreach (Transform a in acidPositions.transform)
         {
             // Generate a chloestrol blockage in some location that doesn't already contain one
@@ -46,7 +45,7 @@ public class Stomach : Organ
         // Continue dying if dying
         if (dying)
         {
-            Invoke("LiverDying", acidGenRate);
+            Invoke("StomachDying", acidGenRate);
         }
     }
 
