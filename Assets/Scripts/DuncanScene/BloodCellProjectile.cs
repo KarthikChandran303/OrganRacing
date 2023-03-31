@@ -16,13 +16,14 @@ public class BloodCellProjectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        heartManager = GameObject.FindGameObjectWithTag("HeartManager").GetComponent<HeartRate>();
     }
 
     // Update is called once per frame
     void Update()
     {   
         float heartSpeed = heartManager.getCurrentRate() / 100;
-        rb.velocity = transform.forward * speed * heartSpeed;
+        rb.velocity = transform.forward * speed * heartSpeed * 1.5f;
     }
 
     private void OnTriggerEnter(Collider other)
