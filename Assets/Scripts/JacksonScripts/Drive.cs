@@ -53,12 +53,12 @@ public class Drive : MonoBehaviour
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f, turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical")));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f, driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical")));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {

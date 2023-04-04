@@ -9,17 +9,24 @@ public class CarGravity : MonoBehaviour
     private void FixedUpdate()
     {
         int layerMask = 1 << 12; // detect the track
+        Vector3 updog = Vector3.up;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, layerMask))
         {
-            float dist = transform.position.y - hit.point.y;
-                //rb.velocity = new Vector3(rb.velocity.x, -20, rb.velocity.z);
-            rb.AddForce(-hit.normal * 5000);
-            rb.gameObject.transform.rotation = Quaternion.Euler(Vector3.RotateTowards(rb.gameObject.transform.up, hit.normal, 1, 1));
-        } else
-        {
-            rb.AddForce(Vector3.down * 5000);
+            updog = hit.normal;
         }
+
+        rb.AddForce(-updog * 5000);
+
+        var targetRotation = TurretLookRotation(transform.forward, updog);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Mathf.Abs(Quaternion.Angle(transform.rotation, targetRotation)) * 10 * Time.deltaTime);
+    }
+
+    Quaternion TurretLookRotation(Vector3 approximateForward, Vector3 exactUp)
+    {
+        Quaternion zToUp = Quaternion.LookRotation(exactUp, -approximateForward);
+        Quaternion yToz = Quaternion.Euler(90, 0, 0);
+        return zToUp * yToz;
     }
 }

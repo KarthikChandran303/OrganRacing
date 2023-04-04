@@ -1332,7 +1332,7 @@ GameObject:
   - component: {fileID: 401617337}
   - component: {fileID: 401617336}
   - component: {fileID: 401617335}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: segment 0 mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1877,7 +1877,7 @@ GameObject:
   - component: {fileID: 644257082}
   - component: {fileID: 644257081}
   - component: {fileID: 644257080}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: segment 2 mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3107,8 +3107,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255624833}
-  m_LocalRotation: {x: -0.012764936, y: 0.91322935, z: -0.028696079, w: -0.40623364}
-  m_LocalPosition: {x: -2.8023555, y: 1.7537618, z: 8.127285}
+  m_LocalRotation: {x: -0.06543631, y: -0.4593699, z: -0.03395859, w: 0.8851803}
+  m_LocalPosition: {x: 8.228751, y: 1.3153985, z: 8.988708}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 3
   m_FollowOffset: {x: 0, y: 0.9300003, z: -3.98}
   m_XDamping: 0
   m_YDamping: 0
@@ -3630,7 +3630,7 @@ MonoBehaviour:
   m_AngularDampingMode: 0
   m_PitchDamping: 0
   m_YawDamping: 0
-  m_RollDamping: 0
+  m_RollDamping: 3
   m_AngularDamping: 0
 --- !u!114 &1522531580
 MonoBehaviour:
