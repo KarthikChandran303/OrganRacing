@@ -19,7 +19,7 @@ public class Pathogen : MonoBehaviour
         locations = GameObject.FindGameObjectsWithTag("Organ");
         int index = Random.Range(0, locations.Length);
         target = locations[index].transform.position;
-        target = new Vector3(target.x, this.transform.position.y, target.z);
+        target = new Vector3(target.x, gameObject.transform.position.y, target.z);
         agent.speed = speed;
         agent.SetDestination(target);
         organ = null;
@@ -65,6 +65,7 @@ public class Pathogen : MonoBehaviour
                 organ.GetComponent<Stomach>().healthLossRate -= deltaHealthLossRate;
             }
         }
+        Destroy(gameObject);
     }
     
 }
