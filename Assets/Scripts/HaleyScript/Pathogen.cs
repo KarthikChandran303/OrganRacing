@@ -9,18 +9,19 @@ public class Pathogen : MonoBehaviour
     private GameObject[] locations;
     private Vector3 target;
     [SerializeField] private float speed = 8f;
-    [SerializeField] private int health = 3;
+    [SerializeField] private float angularSpeed = 999999999f;
     private GameObject organ;
     [SerializeField] private float deltaHealthLossRate = 0.5f;
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = gameObject.GetComponentInParent<NavMeshAgent>();
         locations = GameObject.FindGameObjectsWithTag("Organ");
         int index = Random.Range(0, locations.Length);
         target = locations[index].transform.position;
         target = new Vector3(target.x, gameObject.transform.position.y, target.z);
         agent.speed = speed;
+        agent.angularSpeed = angularSpeed;
         agent.SetDestination(target);
         organ = null;
     }
@@ -28,26 +29,34 @@ public class Pathogen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0) {
-            Kill();
-        }
+        agent.speed = speed;
     }
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.name == "Brain") {
-            organ = other.gameObject;
+
+    private void OnTriggerEnter(Collider col) {
+        GameObject other = col.gameObject;
+        if (other.name == "Brain") {
+            organ = other;
             organ.GetComponent<Organ>().healthLossRate += deltaHealthLossRate;
-        } else if (other.gameObject.name == "Heart") {
-            organ = other.gameObject;
+            agent.enabled = false;
+        } else if (other.name == "Heart") {
+            organ = other;
             organ.GetComponent<Heart>().healthLossRate += deltaHealthLossRate;
-        } else if (other.gameObject.name == "Kidneys") {
-            organ = other.gameObject;
+            agent.enabled = false;
+        } else if (other.name == "Kidneys") {
+            organ = other;
             organ.GetComponent<Kidneys>().healthLossRate += deltaHealthLossRate;
-        } else if (other.gameObject.name == "Liver") {
-            organ = other.gameObject;
+            agent.enabled = false;
+        } else if (other.name == "Liver") {
+            organ = other;
             organ.GetComponent<Liver>().healthLossRate += deltaHealthLossRate;
-        } else if (other.gameObject.name == "Stomach") {
-            organ = other.gameObject;
+            agent.enabled = false;
+        } else if (other.name == "Stomach") {
+            organ = other;
             organ.GetComponent<Stomach>().healthLossRate += deltaHealthLossRate;
+            agent.enabled = false;
+        } else if (other.GetComponent<BloodCellProjectile>() != null) {
+            agent.enabled = false;
+            Kill();
         }
     }
 
@@ -65,7 +74,7 @@ public class Pathogen : MonoBehaviour
                 organ.GetComponent<Stomach>().healthLossRate -= deltaHealthLossRate;
             }
         }
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
     
 }
