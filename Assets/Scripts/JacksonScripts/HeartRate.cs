@@ -22,10 +22,46 @@ public class HeartRate : MonoBehaviour
 
     [SerializeField] TMP_Text UILabel;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public int organsInDanger = 0;
+    public int organsDying = 0;
 
+    [Header("Music")]
+    [SerializeField] AudioClip fullHealthMusic;
+    [SerializeField] AudioClip dangerMusic;
+    [SerializeField] AudioClip dyingMusic;
+
+    [SerializeField] AudioSource music;
+
+    public void ChangeMusic()
+    {
+        if (organsDying > 0)
+        {
+            PlayClip(dyingMusic);
+        }
+        else if (organsInDanger > 0)
+        {
+            PlayClip(dangerMusic);
+        }
+        else
+        {
+            PlayClip(fullHealthMusic);
+        }
+    }
+
+    void PlayClip(AudioClip clip)
+    {
+        if (music.clip != clip)
+        {
+            music.clip = clip;
+            music.Play();
+        }
+    }
+
+    public void OrganStatusChange(int dDanger, int dDying)
+    {
+        organsInDanger += dDanger;
+        organsDying += dDying;
+        ChangeMusic();
     }
 
     // Update is called once per frame

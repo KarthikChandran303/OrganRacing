@@ -6,6 +6,8 @@ public class Kidneys : Organ
 {
     protected override void HealthEffects()
     {
+        base.HealthEffects();
+
         if (health <= 0)
         {
             heartManager.bloodCellEffectiveness = 6;

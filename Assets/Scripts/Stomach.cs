@@ -14,8 +14,18 @@ public class Stomach : Organ
 
     public float acidGenRate = 5f;
 
+    private AudioSource rumble;
+
+    protected void Start()
+    {
+        base.Start();
+        rumble = GetComponent<AudioSource>();
+    }
+
     protected override void HealthEffects()
     {
+        base.HealthEffects();
+
         if (health < 30 && !dying)
         {
             dying = true;
@@ -35,7 +45,7 @@ public class Stomach : Organ
             // Generate a chloestrol blockage in some location that doesn't already contain one
             if (!acidInstances.ContainsKey(a))
             {
-                Debug.Log("i have made an ACID POOL");
+                rumble.Play();
                 GameObject acid = Instantiate(acidPrefab, a.transform.position, a.transform.rotation);
                 acidInstances.Add(a, acid);
                 break;

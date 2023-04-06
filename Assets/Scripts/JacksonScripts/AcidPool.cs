@@ -6,6 +6,8 @@ public class AcidPool : MonoBehaviour
 {
     private Drive player;
 
+    public AudioSource carCollisionSound;
+
     private void Start()
     {
         player = FindObjectOfType<Drive>();
@@ -17,6 +19,7 @@ public class AcidPool : MonoBehaviour
         if (other.gameObject.layer == 6)
         {
             player.ApplySpeedReduction();
+            carCollisionSound.Play();
         }
     }
 }
