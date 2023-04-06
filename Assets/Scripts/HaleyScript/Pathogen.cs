@@ -9,9 +9,10 @@ public class Pathogen : MonoBehaviour
     private GameObject[] locations;
     private Vector3 target;
     [SerializeField] private float speed = 8f;
-    [SerializeField] private float angularSpeed = 999999999f;
+    [SerializeField] private float angularSpeed = 999999f;
     private GameObject organ;
     [SerializeField] private float deltaHealthLossRate = 0.5f;
+    public HeartRate heartManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class Pathogen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.speed = speed;
+        agent.speed = speed * (heartManager.getCurrentRate() / 100);
     }
 
     private void OnTriggerEnter(Collider col) {
