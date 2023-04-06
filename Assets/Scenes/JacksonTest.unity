@@ -13446,7 +13446,7 @@ MonoBehaviour:
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
   bloodCellSpawnLocation: {fileID: 1670205642}
   heartManager: {fileID: 837583037}
-  CarCamera: {fileID: 2011158369}
+  CarCamera: {fileID: 0}
   boostDeleteRate: 5
 --- !u!1 &1411904225
 GameObject:
@@ -20543,10 +20543,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2edce0f859d4bb4c9b51a66f1918a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start: 1
   shakeDuration: 2
   intensityCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

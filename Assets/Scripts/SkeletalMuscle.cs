@@ -5,11 +5,10 @@ using UnityEngine;
 public class SkeletalMuscle : Organ
 {
     public CameraShake CarCamera;
-
     public float boostDeleteRate = 5f;
     protected new void Start()
     {
-        CarCamera.StartShaking();
+        //CarCamera.StartShaking();
         // foreach (Transform boost in boostPositions.transform)
         // {
         //     // Generate a speed booster in some location that doesn't already contain one
