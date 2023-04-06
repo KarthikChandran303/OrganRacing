@@ -21,6 +21,8 @@ public class Liver : Organ
 
     protected override void HealthEffects()
     {
+        base.HealthEffects();
+
         if (health < 30 && !dying)
         {
             dying = true;
@@ -59,7 +61,7 @@ public class Liver : Organ
         // Remove a cholestrol every 5 seconds
         foreach (Transform chol in cholesterolInstances.Keys)
         {
-            Destroy(cholesterolInstances[chol]);
+            cholesterolInstances[chol].GetComponent<Cholesterol>().DestroyCholesterol();
             cholesterolInstances.Remove(chol);
             break;
         }
