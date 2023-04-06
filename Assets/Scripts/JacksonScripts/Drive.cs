@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class Drive : MonoBehaviour
 {
 
@@ -23,6 +24,7 @@ public class Drive : MonoBehaviour
     private float turnInput;
     private float driftDirection;
     public HeartRate heartManager;
+    [SerializeField] TMP_Text speedometer;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,8 @@ public class Drive : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        speedometer.text = ((int) sphere.velocity.magnitude).ToString();
         speedInput = 0f;
         if (Input.GetAxis("Vertical") > 0) {
             speedInput = Input.GetAxis("Vertical") * forwardAccel * 1500f;
