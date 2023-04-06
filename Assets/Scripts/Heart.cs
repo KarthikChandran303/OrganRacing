@@ -6,6 +6,8 @@ public class Heart : Organ
 {
     protected override void HealthEffects()
     {
+        base.HealthEffects();
+
         if (health <= 0)
         {
             heartManager.heartDeteriorationFactor = 2;

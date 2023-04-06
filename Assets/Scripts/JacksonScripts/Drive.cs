@@ -24,6 +24,23 @@ public class Drive : MonoBehaviour
     private float driftDirection;
     public HeartRate heartManager;
 
+    [Header("Sounds")]
+    [SerializeField] AudioSource engineSource;
+    [SerializeField] AudioClip engineRev;
+    [SerializeField] AudioClip engineOn;
+
+    [SerializeField] AudioSource driftClickSource;
+    [SerializeField] AudioClip driftClick1;
+    [SerializeField] AudioClip driftClick2;
+    [SerializeField] AudioClip driftClick3;
+
+    [SerializeField] AudioSource driftBoostSource;
+    [SerializeField] AudioClip driftBoost1;
+    [SerializeField] AudioClip driftBoost2;
+    [SerializeField] AudioClip driftBoost3;
+
+    [SerializeField] AudioSource wheelsSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +50,8 @@ public class Drive : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float heartSpeed = heartManager.getCurrentRate() / 100;
+
         speedInput = 0f;
         if (Input.GetAxis("Vertical") > 0) {
             speedInput = Input.GetAxis("Vertical") * forwardAccel * 1500f;
@@ -53,22 +72,37 @@ public class Drive : MonoBehaviour
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical")));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical")));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {
                 Debug.Log("Drift level 3");
+                if (driftClickSource.clip != driftClick3)
+                {
+                    driftClickSource.clip = driftClick3;
+                    driftClickSource.Play();
+                }
             }
             else if (driftTime > 2) {
                 Debug.Log("Drift level 2");
+                if (driftClickSource.clip != driftClick2)
+                {
+                    driftClickSource.clip = driftClick2;
+                    driftClickSource.Play();
+                }
             }
             else if (driftTime > 1) {
                 Debug.Log("Drift level 1");
+                if (driftClickSource.clip != driftClick1)
+                {
+                    driftClickSource.clip = driftClick1;
+                    driftClickSource.Play();
+                }
             }
         }
 
@@ -96,20 +130,28 @@ public class Drive : MonoBehaviour
         if (driftTime > 3) {
             isSpeedBoosted = true;
             boostTime = 3;
+            driftBoostSource.clip = driftBoost3;
+            driftBoostSource.Play();
         }
         else if (driftTime > 2) {
             isSpeedBoosted = true;
             boostTime = 2;
+            driftBoostSource.clip = driftBoost2;
+            driftBoostSource.Play();
         }
         else if (driftTime > 1) {
             isSpeedBoosted = true;
             boostTime = 1;
+            driftBoostSource.clip = driftBoost1;
+            driftBoostSource.Play();
         }
         driftTime = 0;
+        driftClickSource.clip = null;
     }
 
     private void FixedUpdate() {
         float heartSpeed = heartManager.getCurrentRate() / 100;
+
         if (Mathf.Abs(speedInput) > 0) {
             if (isSpeedBoosted) {
                 sphere.AddForce(transform.forward * 1.5f * speedInput * heartSpeed);
@@ -120,6 +162,16 @@ public class Drive : MonoBehaviour
             else {
                 sphere.AddForce(transform.forward * speedInput * heartSpeed);
             }
+        }
+
+        float speedMag = sphere.velocity.sqrMagnitude;
+        if (speedMag < 1000)
+        {
+            wheelsSound.volume = speedMag / 1000;
+        }
+        else
+        {
+            wheelsSound.volume = speedMag;
         }
     }
 
