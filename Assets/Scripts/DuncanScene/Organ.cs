@@ -26,9 +26,18 @@ public class Organ : MonoBehaviour
 
     public HeartRate heartManager;
 
+    public enum Status { HEALTHY, DANGER, DYING };
+
+    public Status status;
+
+    AudioSource oxygenateSound;
+
     protected void Start()
     {
         health = maxHealth;
+        GameObject soundObj = Instantiate(Resources.Load("OrganOxygenateSound") as GameObject, transform);
+        soundObj.transform.parent = gameObject.transform;
+        oxygenateSound = soundObj.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -47,7 +56,32 @@ public class Organ : MonoBehaviour
 
     protected virtual void HealthEffects()
     {
-
+        if (health == 0)
+        {
+            if (status != Status.DYING)
+            {
+                status = Status.DYING;
+                heartManager.OrganStatusChange(-1, 1);
+            }
+        }
+        else if (health <= 30)
+        {
+            if (status == Status.DYING)
+            {
+                status = Status.DANGER;
+                heartManager.OrganStatusChange(1, -1);
+            }
+            else if (status == Status.HEALTHY)
+            {
+                status = Status.DANGER;
+                heartManager.OrganStatusChange(1, 0);
+            }
+        }
+        else if (health > 30 && status != Status.HEALTHY)
+        {
+            status = Status.HEALTHY;
+            heartManager.OrganStatusChange(-1, 0);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -61,6 +95,8 @@ public class Organ : MonoBehaviour
             Destroy(other.gameObject);
 
             Invoke("GenerateUnoxygenatedCell", bloodCellUseRate);
+
+            oxygenateSound.Play();
         }
     }
 
