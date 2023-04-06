@@ -33,6 +33,8 @@ public class BloodCellProjectile : MonoBehaviour
         {
             Instantiate(bloodCell, transform.position, transform.rotation);
             Destroy(gameObject);
+        } else if (other.gameObject.layer == 12) {
+            Destroy(gameObject);
         }
     }
 }
