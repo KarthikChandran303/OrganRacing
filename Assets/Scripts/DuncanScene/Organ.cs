@@ -22,7 +22,7 @@ public class Organ : MonoBehaviour
 
     [SerializeField] GameObject unoxyBloodCellPrefab;
 
-    public Transform bloodCellSpawnLocation;
+    public OxyPocket oxyPocket;
 
     public HeartRate heartManager;
 
@@ -94,15 +94,16 @@ public class Organ : MonoBehaviour
 
             Destroy(other.gameObject);
 
-            Invoke("GenerateUnoxygenatedCell", bloodCellUseRate);
+            oxyPocket.bloodCellCount++;
 
             oxygenateSound.Play();
         }
-    }
+        else if (other.gameObject.layer == 6)
+        {
+            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+            Vector3 vel = rb.velocity;
+            rb.AddForce(-vel * 10000);
 
-    private void GenerateUnoxygenatedCell()
-    {
-        GameObject cell = Instantiate(unoxyBloodCellPrefab);
-        cell.transform.position = bloodCellSpawnLocation.position;
+        }
     }
 }
