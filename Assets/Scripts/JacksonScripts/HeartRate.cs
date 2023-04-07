@@ -20,7 +20,7 @@ public class HeartRate : MonoBehaviour
 
     public float bloodCellEffectiveness = 10f;
 
-    [SerializeField] TMP_Text UILabel;
+    //[SerializeField] TMP_Text UILabel;
 
     public int organsInDanger = 0;
     public int organsDying = 0;
@@ -67,7 +67,7 @@ public class HeartRate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UILabel.text = " Heart rate: " + (int) currentHeartRate;
+        //UILabel.text = " Heart rate: " + (int) currentHeartRate;
     }
 
     public void startRest() {

@@ -12,12 +12,12 @@ public class DailySchedule : MonoBehaviour
 
     public HeartRate heartManager;
 
-    [SerializeField] TMP_Text UILabel;
+    public GameObject activityDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        activityDisplay.transform.GetChild(2).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -35,21 +35,24 @@ public class DailySchedule : MonoBehaviour
     }
     
     void updateActivity() {
+        for (int i = 0; i < 4; i++) {
+            activityDisplay.transform.GetChild(i).gameObject.SetActive(false);
+        }
         if (currentHour == 1 || currentHour == 4 || currentHour == 8 ) {
             heartManager.startEating();
-            UILabel.text = " Thomas Activity: Eating";
+            activityDisplay.transform.GetChild(3).gameObject.SetActive(true);
         }
-        if (currentHour == 0 || currentHour == 5 || currentHour == 9 ) {
+        else if (currentHour == 0 || currentHour == 5 || currentHour == 9 ) {
             heartManager.startRest();
-            UILabel.text = " Thomas Activity: Resting";
+            activityDisplay.transform.GetChild(2).gameObject.SetActive(true);
         }
-        if (currentHour == 2 || currentHour == 7) {
+        else if (currentHour == 2 || currentHour == 7) {
             heartManager.startExercise();
-            UILabel.text = " Thomas Activity: Exercising";
+            activityDisplay.transform.GetChild(0).gameObject.SetActive(true);
         }
-        if (currentHour == 3 || currentHour == 6 ) {
+        else if (currentHour == 3 || currentHour == 6 ) {
             heartManager.startWorking();
-            UILabel.text = " Thomas Activity: Working";
+            activityDisplay.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
 }
