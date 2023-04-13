@@ -10,8 +10,9 @@ public class BloodCellManager : MonoBehaviour
     public int oxyBloodCellCount = 0;
     public int unoxyBloodCellCount = 0;
 
-    [SerializeField] TMP_Text oxyBloodCellCountLabel;
-    [SerializeField] TMP_Text unoxyBloodCellCountLabel;
+    public GameObject oxyCellHolder;
+
+    public GameObject unoxyCellHolder;
 
     // Start is called before the first frame update
     void Start()
@@ -22,16 +23,41 @@ public class BloodCellManager : MonoBehaviour
         }
     }
 
+    public void addOxyCell() {
+        for (int i = 0; i < oxyBloodCellCount; i++) {
+            oxyCellHolder.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    public void addUnoxyCell() {
+        for (int i = oxyBloodCellCount; i < oxyBloodCellCount + unoxyBloodCellCount; i++) {
+            unoxyCellHolder.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    // public void removeOxyCell() {
+    //     oxyCellHolder.transform.GetChild(oxyBloodCellCount).gameObject.SetActive(false);
+    // }
+
+    public void updateCellCount() {
+        for (int i = 0; i < 12; i++) {
+            oxyCellHolder.transform.GetChild(i).gameObject.SetActive(false);
+            unoxyCellHolder.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        addOxyCell();
+        addUnoxyCell();
+    }
+
     public void AddBloodCell(int amount = 1)
     {
         oxyBloodCellCount += amount;
-        UpdateLabels();
+        updateCellCount();
     }
 
     public void AddUnoxyBloodCell(int amount = 1)
     {
         unoxyBloodCellCount += amount;
-        UpdateLabels();
+        updateCellCount();
     }
 
     public void UseBloodCell(int amount = 1)
@@ -40,7 +66,7 @@ public class BloodCellManager : MonoBehaviour
             amount = oxyBloodCellCount;
 
         oxyBloodCellCount -= amount;
-        UpdateLabels();
+        updateCellCount();
     }
 
     /// <summary>
@@ -57,8 +83,7 @@ public class BloodCellManager : MonoBehaviour
 
         unoxyBloodCellCount += amount;
         oxyBloodCellCount -= amount;
-        UpdateLabels();
-
+        updateCellCount();
         return amount;
     }
 
@@ -66,14 +91,14 @@ public class BloodCellManager : MonoBehaviour
     {
         int amount = unoxyBloodCellCount;
         unoxyBloodCellCount -= amount;
-        UpdateLabels();
+        updateCellCount();
         return amount;
     }
 
-    public void UpdateLabels()
-    {
-        oxyBloodCellCountLabel.text = "Oxygenated Blood Cells: " + oxyBloodCellCount;
-        unoxyBloodCellCountLabel.text = "Unoxygenated Blood Cells: " + unoxyBloodCellCount;
-    }
+    // public void UpdateLabels()
+    // {
+    //     oxyBloodCellCountLabel.text = "Oxygenated Blood Cells: " + oxyBloodCellCount;
+    //     unoxyBloodCellCountLabel.text = "Unoxygenated Blood Cells: " + unoxyBloodCellCount;
+    // }
 
 }
