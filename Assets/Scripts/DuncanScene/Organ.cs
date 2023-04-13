@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Organ : MonoBehaviour
 {
+    public GameObject minimapIcon;
+
     public float maxHealth = 100;
 
     public float health;
@@ -18,7 +20,9 @@ public class Organ : MonoBehaviour
 
     [SerializeField] TMP_Text healthLabel;
 
-    [SerializeField] Image healthBarSprite;
+    [SerializeField] GameObject healthBar;
+
+    private HealthBar hb;
 
     [SerializeField] GameObject unoxyBloodCellPrefab;
 
@@ -32,8 +36,13 @@ public class Organ : MonoBehaviour
 
     AudioSource oxygenateSound;
 
+    AudioSource impactSound;
+
     protected void Start()
     {
+        Instantiate(minimapIcon, transform);
+        hb = Instantiate(healthBar, transform).GetComponent<HealthBar>();
+
         health = maxHealth;
         GameObject soundObj = Instantiate(Resources.Load("OrganOxygenateSound") as GameObject, transform);
         soundObj.transform.parent = gameObject.transform;
@@ -49,7 +58,7 @@ public class Organ : MonoBehaviour
 
         healthLabel.text = organName + " Health: " + (int) health;
 
-        healthBarSprite.fillAmount = health / maxHealth;
+        hb.UpdateHealthBar(health / maxHealth);
 
         HealthEffects();
     }
@@ -100,10 +109,7 @@ public class Organ : MonoBehaviour
         }
         else if (other.gameObject.layer == 6)
         {
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
-            Vector3 vel = rb.velocity;
-            rb.AddForce(-vel * 10000);
-
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Drive>().BounceImpact();
         }
     }
 }

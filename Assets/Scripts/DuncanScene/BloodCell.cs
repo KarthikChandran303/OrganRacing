@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BloodCell : MonoBehaviour
 {
+    public GameObject minimapIcon;
+
+    private void Start()
+    {
+        Instantiate(minimapIcon, transform);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
