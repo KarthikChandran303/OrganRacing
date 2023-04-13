@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Organ : MonoBehaviour
 {
+    public GameObject minimapIcon;
+
     public float maxHealth = 100;
 
     public float health;
@@ -18,11 +20,13 @@ public class Organ : MonoBehaviour
 
     [SerializeField] TMP_Text healthLabel;
 
-    [SerializeField] Image healthBarSprite;
+    [SerializeField] GameObject healthBar;
+
+    private HealthBar hb;
 
     [SerializeField] GameObject unoxyBloodCellPrefab;
 
-    public Transform bloodCellSpawnLocation;
+    public OxyPocket oxyPocket;
 
     public HeartRate heartManager;
 
@@ -32,8 +36,13 @@ public class Organ : MonoBehaviour
 
     AudioSource oxygenateSound;
 
+    AudioSource impactSound;
+
     protected void Start()
     {
+        Instantiate(minimapIcon, transform);
+        hb = Instantiate(healthBar, transform).GetComponent<HealthBar>();
+
         health = maxHealth;
         GameObject soundObj = Instantiate(Resources.Load("OrganOxygenateSound") as GameObject, transform);
         soundObj.transform.parent = gameObject.transform;
@@ -49,7 +58,7 @@ public class Organ : MonoBehaviour
 
         healthLabel.text = organName + " Health: " + (int) health;
 
-        healthBarSprite.fillAmount = health / maxHealth;
+        hb.UpdateHealthBar(health / maxHealth);
 
         HealthEffects();
     }
@@ -94,15 +103,13 @@ public class Organ : MonoBehaviour
 
             Destroy(other.gameObject);
 
-            Invoke("GenerateUnoxygenatedCell", bloodCellUseRate);
+            oxyPocket.bloodCellCount++;
 
             oxygenateSound.Play();
         }
-    }
-
-    private void GenerateUnoxygenatedCell()
-    {
-        GameObject cell = Instantiate(unoxyBloodCellPrefab);
-        cell.transform.position = bloodCellSpawnLocation.position;
+        else if (other.gameObject.layer == 6)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Drive>().BounceImpact();
+        }
     }
 }

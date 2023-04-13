@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class Drive : MonoBehaviour
 {
+    public GameObject minimapIcon;
 
     public Rigidbody sphere;
     public float forwardAccel = 8f;
@@ -26,16 +27,39 @@ public class Drive : MonoBehaviour
     public HeartRate heartManager;
     [SerializeField] TMP_Text speedometer;
 
+    [Header("Sounds")]
+    [SerializeField] AudioSource engineSource;
+    [SerializeField] AudioClip engineRev;
+    [SerializeField] AudioClip engineOn;
+
+    [SerializeField] AudioSource driftClickSource;
+    [SerializeField] AudioClip driftClick1;
+    [SerializeField] AudioClip driftClick2;
+    [SerializeField] AudioClip driftClick3;
+
+    [SerializeField] AudioSource driftBoostSource;
+    [SerializeField] AudioClip driftBoost1;
+    [SerializeField] AudioClip driftBoost2;
+    [SerializeField] AudioClip driftBoost3;
+
+    [SerializeField] AudioSource wheelsSound;
+    [SerializeField] AudioSource impactSound;
+
     // Start is called before the first frame update
     void Start()
     {
        sphere.transform.parent = null;
+       Instantiate(minimapIcon, transform);
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        speedometer.text = ((int) sphere.velocity.magnitude).ToString();
+    {
+        float heartSpeed = heartManager.getCurrentRate() / 100;
+
+        if (speedometer != null)
+            speedometer.text = ((int) sphere.velocity.magnitude).ToString();
+
         speedInput = 0f;
         if (Input.GetAxis("Vertical") > 0) {
             speedInput = Input.GetAxis("Vertical") * forwardAccel * 1500f;
@@ -56,22 +80,37 @@ public class Drive : MonoBehaviour
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f, turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3 (0f, driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {
                 Debug.Log("Drift level 3");
+                if (driftClickSource.clip != driftClick3)
+                {
+                    driftClickSource.clip = driftClick3;
+                    driftClickSource.Play();
+                }
             }
             else if (driftTime > 2) {
                 Debug.Log("Drift level 2");
+                if(driftClickSource.clip != driftClick2)
+                {
+                    driftClickSource.clip = driftClick2;
+                    driftClickSource.Play();
+                }
             }
             else if (driftTime > 1) {
                 Debug.Log("Drift level 1");
+                if (driftClickSource.clip != driftClick1)
+                {
+                    driftClickSource.clip = driftClick1;
+                    driftClickSource.Play();
+                }
             }
         }
 
@@ -99,16 +138,23 @@ public class Drive : MonoBehaviour
         if (driftTime > 3) {
             isSpeedBoosted = true;
             boostTime = 3;
+            driftBoostSource.clip = driftBoost3;
+            driftBoostSource.Play();
         }
         else if (driftTime > 2) {
             isSpeedBoosted = true;
             boostTime = 2;
+            driftBoostSource.clip = driftBoost2;
+            driftBoostSource.Play();
         }
         else if (driftTime > 1) {
             isSpeedBoosted = true;
             boostTime = 1;
+            driftBoostSource.clip = driftBoost1;
+            driftBoostSource.Play();
         }
         driftTime = 0;
+        driftClickSource.clip = null;
     }
 
     private void FixedUpdate() {
@@ -124,13 +170,39 @@ public class Drive : MonoBehaviour
                 sphere.AddForce(transform.forward * speedInput * heartSpeed);
             }
         }
+
+        float speedMag = sphere.velocity.sqrMagnitude;
+        if (speedMag < 1000)
+        {
+            wheelsSound.volume = speedMag / 1000;
+        }
+        else
+        {
+            wheelsSound.volume = speedMag;
+        }
     }
 
-    public void OnCollisionEnter(Collision col) {
-/*        Debug.Log("hello");
-        if (col.gameObject.tag == "Booster") {
+    public void BounceImpact()
+    {
+        Vector3 vel = sphere.velocity;
+        sphere.AddForce(-vel * 10000);
 
-        }*/
+        PlayImpactSound();
+    }
+
+    private void PlayImpactSound()
+    {
+        float speedMag = sphere.velocity.sqrMagnitude;
+        if (speedMag < 1000)
+        {
+            impactSound.volume = speedMag / 1000;
+        }
+        else
+        {
+            impactSound.volume = speedMag;
+        }
+
+        impactSound.Play();
     }
 
     public void ApplySpeedBoost()

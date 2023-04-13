@@ -35,4 +35,16 @@ public class Cholesterol : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject go = other.gameObject;
+        if (go.layer == 6)
+        {
+            impactSoundSource.Play();
+            Rigidbody rb = go.GetComponent<Rigidbody>();
+            Vector3 vel = rb.velocity;
+            rb.AddForce(-vel * 10000);
+        }
+    }
 }

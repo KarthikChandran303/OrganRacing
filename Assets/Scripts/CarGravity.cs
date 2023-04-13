@@ -17,7 +17,10 @@ public class CarGravity : MonoBehaviour
             updog = hit.normal;
         }
 
-        rb.AddForce(-updog * 5000);
+        if ((hit.point - transform.position).magnitude > 0.8)
+            rb.AddForce(-updog * 5000);
+        else
+            rb.AddForce(-updog * 50);
 
         var targetRotation = TurretLookRotation(transform.forward, updog);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Mathf.Abs(Quaternion.Angle(transform.rotation, targetRotation)) * 10 * Time.deltaTime);

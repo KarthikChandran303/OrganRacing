@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bone : MonoBehaviour
 {
+    public GameObject minimapIcon;
+
     public GameObject bloodCellPrefab;
 
     public Transform bloodCellSpawnLocation;
@@ -12,6 +14,7 @@ public class Bone : MonoBehaviour
 
     private void Start()
     {
+        Instantiate(minimapIcon, transform);
         InvokeRepeating("GenerateBloodCell", generationRate, generationRate);
     }
 

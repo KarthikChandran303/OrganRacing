@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Lungs : MonoBehaviour
 {
+    public GameObject minimapIcon;
+
     public int bloodCellStorage = 0;
 
     public GameObject bloodCellPrefab;
@@ -11,6 +13,11 @@ public class Lungs : MonoBehaviour
     public Transform bloodCellSpawnLocation;
 
     private int generationRate = 7;
+
+    private void Start()
+    {
+        Instantiate(minimapIcon, transform);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
