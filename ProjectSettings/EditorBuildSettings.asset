@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JacksonTest.unity
     guid: 4f512c91958fdee49bbcd0dfaebee1f8
+  - enabled: 1
+    path: Assets/Scenes/DuncanMitchellScene.unity
+    guid: ce5e920be37b5d543b38b26f7cbbecac
   m_configObjects: {}
