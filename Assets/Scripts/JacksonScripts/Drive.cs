@@ -122,9 +122,6 @@ public class Drive : MonoBehaviour
             driftCheck = false;
             if (drifting) speedBoost();
         }
-        if (Input.GetKeyDown("escape")) {
-            SceneManager.LoadScene("Title");
-        }
 
         if (isSpeedBoosted || isSpeedReduced) {
             if (boostTime > 0) {
