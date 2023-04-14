@@ -31,15 +31,22 @@ public class Orbit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bloodManager.oxyBloodCellCount > visibleCells && bloodManager.oxyBloodCellCount > 0 && bloodManager.oxyBloodCellCount <= numberOfCells) {
+        transform.Rotate(Vector3.up, speed * Time.deltaTime);
+    }
+
+    public void AddCell() {
+        if (bloodManager.oxyBloodCellCount > visibleCells && bloodManager.oxyBloodCellCount <= numberOfCells) {
             cells[visibleCells].GetComponent<Renderer>().enabled = true;
             visibleCells++;
         }
+        visibleCells = Mathf.Clamp(visibleCells, 0, numberOfCells);
+    }
+
+    public void RemoveCell() {
         if (bloodManager.oxyBloodCellCount < visibleCells) {
             visibleCells--;
             cells[visibleCells].GetComponent<Renderer>().enabled = false;
         }
         visibleCells = Mathf.Clamp(visibleCells, 0, numberOfCells);
-        transform.Rotate(Vector3.up, speed * Time.deltaTime);
     }
 }

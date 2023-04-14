@@ -52,6 +52,7 @@ public class BloodCellManager : MonoBehaviour
     {
         oxyBloodCellCount += amount;
         updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
     }
 
     public void AddUnoxyBloodCell(int amount = 1)
@@ -67,6 +68,7 @@ public class BloodCellManager : MonoBehaviour
 
         oxyBloodCellCount -= amount;
         updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().RemoveCell();
     }
 
     /// <summary>
