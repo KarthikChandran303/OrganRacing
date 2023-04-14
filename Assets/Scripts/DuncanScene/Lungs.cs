@@ -24,12 +24,16 @@ public class Lungs : MonoBehaviour
         // Player collides with this organ
         if (other.gameObject.layer == 6)
         {
-            bloodCellStorage += BloodCellManager.instance.DeliverUnoxygenatedCells();
+/*            bloodCellStorage += BloodCellManager.instance.DeliverUnoxygenatedCells();
 
             if (bloodCellStorage > 0)
             {
                 Invoke("GenerateOxygenatedBloodCell", generationRate);
-            }
+            }*/
+
+            BloodCellManager.instance.OxygenateCells();
+
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Drive>().BounceImpact();
         }
     }
 

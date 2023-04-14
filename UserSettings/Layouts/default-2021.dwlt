@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -120,14 +120,14 @@ MonoBehaviour:
     y: 464.8
     width: 1200
     height: 266
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 231, y: 271}
+  m_MaxSize: {x: 10001, y: 10021}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 18}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -438,22 +438,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Audio/Sound Effects
+    - Assets/Art/Materials
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Audio/Sound Effects
+  - Assets/Art/Materials
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\rakth\Documents\GitHub\OrganRacing
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: c4fe0000
-    m_LastClickedID: 65220
-    m_ExpandedIDs: 00000000687500007c75000082750000867500008875000000ca9a3bffffff7f
+    m_SelectedIDs: 2a190100
+    m_LastClickedID: 71978
+    m_ExpandedIDs: 00000000f0700000027100000a7100001071000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -481,7 +481,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000068750000
+    m_ExpandedIDs: 00000000f0700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -506,8 +506,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: e8f70000
-    m_LastClickedInstanceID: 63464
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -572,7 +572,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 138.40002
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -608,24 +608,24 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: e8f70000
-      m_LastClickedID: 63464
-      m_ExpandedIDs: 7ec7feff8ac7feffa4d6feffb0d6feff28d7feff34d7feff92e8feff9ce8feffbce8feffc6e8feff2e90ffff3e90ffff509cffff12a9ffffbac6ffffc6c6ffffd6c6ffff30d9ffff28e8ffffbafaffffa06c0000fc6d00002c71000048710000127d0000e8f7000030f80000f0f80000daf900004efa00002afb000042fb00009afc00002afd0000b4fd000006fe000026fe000068fe0000
+      scrollPos: {x: 0, y: 205.20001}
+      m_SelectedIDs: 0a800000
+      m_LastClickedID: 32778
+      m_ExpandedIDs: 50ddffffe8ddffff08e0ffff28e1ffff7ce3ffff1ce4ffffbce4ffff86e9ffff16fbfffffa7b0000e87e0000d47f00003c810000a8810000f6810000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: Car Camera
-        m_OriginalName: Car Camera
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 64746
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 4}
       m_SearchString: 
@@ -893,9 +893,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 194.1192, y: 70.43448, z: -216.27931}
+    m_Target: {x: 284.77982, y: -3.4735777, z: -149.43411}
     speed: 2
-    m_Value: {x: 194.1192, y: 70.43448, z: -216.27931}
+    m_Value: {x: 284.77982, y: -3.4735777, z: -149.43411}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -942,13 +942,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.3202274, y: 0.1338037, z: -0.038622774, w: 0.9382752}
+    m_Target: {x: 0.21103854, y: 0.5401384, z: -0.12788971, w: 0.8062852}
     speed: 2
-    m_Value: {x: 0.31985962, y: 0.13365, z: -0.038578413, w: 0.93719757}
+    m_Value: {x: 0.21075018, y: 0.5394004, z: -0.12771496, w: 0.8051835}
   m_Size:
-    m_Target: 1.596089
+    m_Target: 17.320509
     speed: 2
-    m_Value: 1.596089
+    m_Value: 17.320509
   m_Ortho:
     m_Target: 0
     speed: 2

@@ -61,16 +61,20 @@ public class Drive : MonoBehaviour
             speedometer.text = ((int) sphere.velocity.magnitude).ToString();
 
         speedInput = 0f;
-        if (Input.GetAxis("Vertical") > 0) {
-            speedInput = Input.GetAxis("Vertical") * forwardAccel * 1500f;
+
+        float dir = Input.GetAxis("Forward") - Input.GetAxis("Backward");
+
+        if (dir > 0) {
+            speedInput = dir * forwardAccel * 1500f;
         } 
-        else if (Input.GetAxis("Vertical") < 0) {
-            speedInput = Input.GetAxis("Vertical") * reverseAccel * 1500f;
+        else if (dir < 0) {
+            speedInput = dir * reverseAccel * 1500f;
             drifting = false;
-        } 
+        }
+
         turnInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown("space")) {
+        if (Input.GetAxis("Drift") > 0) {
             driftCheck = true;
         }
 
@@ -80,12 +84,12 @@ public class Drive : MonoBehaviour
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * heartSpeed));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * Input.GetAxis("Vertical") * heartSpeed));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * dir * heartSpeed));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {
@@ -114,7 +118,7 @@ public class Drive : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp("space") && drifting) {
+        if (Input.GetAxis("Drift") == 0 && drifting) {
             driftCheck = false;
             if (drifting) speedBoost();
         }

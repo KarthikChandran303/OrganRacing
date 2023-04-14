@@ -111,3 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodCellCount: 0
+  emptyMaterial: {fileID: 2100000, guid: 445766f820e46384ebfe35954e491c67, type: 2}
+  bloodMaterial: {fileID: 2100000, guid: ba59ca36bd8e24f84b12d831607aa438, type: 2}
