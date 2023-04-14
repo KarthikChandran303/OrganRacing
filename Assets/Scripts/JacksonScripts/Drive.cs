@@ -82,16 +82,20 @@ public class Drive : MonoBehaviour
 
         if (driftCheck && !drifting && turnInput != 0) {
             drifting = true;
-            driftDirection = turnInput;
+            if (turnInput > 0) {
+                driftDirection = 1;
+            } else {
+                driftDirection = -1;
+            }
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * .75f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * .5f));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * .75f));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * .5f));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {
