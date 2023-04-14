@@ -74,8 +74,11 @@ public class Drive : MonoBehaviour
 
         turnInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetAxis("Drift") > 0) {
+        if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
             driftCheck = true;
+        }
+        else {
+            driftCheck = false;
         }
 
         if (driftCheck && !drifting && turnInput != 0) {
@@ -84,12 +87,12 @@ public class Drive : MonoBehaviour
             driftCheck = false;
         } 
         else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * heartSpeed));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir));
             transform.position = sphere.transform.position;
         }
 
         if (drifting) {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * dir * heartSpeed));
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3) {
