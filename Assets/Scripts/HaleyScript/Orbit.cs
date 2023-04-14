@@ -35,7 +35,7 @@ public class Orbit : MonoBehaviour
     }
 
     public void AddCell() {
-        if (bloodManager.oxyBloodCellCount > visibleCells && bloodManager.oxyBloodCellCount <= numberOfCells) {
+        while (bloodManager.oxyBloodCellCount > visibleCells && bloodManager.oxyBloodCellCount <= numberOfCells) {
             cells[visibleCells].GetComponent<Renderer>().enabled = true;
             visibleCells++;
         }
@@ -43,7 +43,7 @@ public class Orbit : MonoBehaviour
     }
 
     public void RemoveCell() {
-        if (bloodManager.oxyBloodCellCount < visibleCells) {
+        while (bloodManager.oxyBloodCellCount < visibleCells) {
             visibleCells--;
             cells[visibleCells].GetComponent<Renderer>().enabled = false;
         }

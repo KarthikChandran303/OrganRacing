@@ -71,6 +71,7 @@ public class BloodCellManager : MonoBehaviour
         oxyBloodCellCount += unoxyBloodCellCount;
         unoxyBloodCellCount = 0;
         updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
     }
 
     public void UseBloodCell(int amount = 1)
