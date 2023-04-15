@@ -44,6 +44,10 @@ public class Drive : MonoBehaviour
     [SerializeField] AudioSource wheelsSound;
     [SerializeField] AudioSource impactSound;
 
+    [Header("Animation")]
+    [SerializeField] Animator bikeAnim;
+    [SerializeField] Animator racerAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +76,12 @@ public class Drive : MonoBehaviour
         }
 
         turnInput = Input.GetAxis("Horizontal");
+
+        //Pass Animation Values
+        bikeAnim.SetFloat("BlendX", turnInput);
+        bikeAnim.SetFloat("BlendY", Input.GetAxis("Forward"));
+        racerAnim.SetFloat("TurnBlend", turnInput);
+
 
         if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
             driftCheck = true;
