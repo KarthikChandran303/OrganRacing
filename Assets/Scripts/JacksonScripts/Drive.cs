@@ -23,6 +23,7 @@ public class Drive : MonoBehaviour
     private float speedInput;
     private float turnInput;
     private float driftDirection;
+    private bool stationaryTurning;
     public HeartRate heartManager;
     [SerializeField] TMP_Text speedometer;
 
@@ -67,12 +68,17 @@ public class Drive : MonoBehaviour
 
         float dir = Input.GetAxis("Forward") - Input.GetAxis("Backward");
 
-        if (dir > 0) {
+        if (Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) {
+            stationaryTurning = true;
+        }
+        else if (dir > 0) {
             speedInput = dir * forwardAccel * 1500f;
+            stationaryTurning = false;
         } 
         else if (dir < 0) {
             speedInput = dir * reverseAccel * 1500f;
             drifting = false;
+            stationaryTurning = false;
         }
 
         turnInput = Input.GetAxis("Horizontal");
@@ -81,7 +87,6 @@ public class Drive : MonoBehaviour
         bikeAnim.SetFloat("BlendX", turnInput);
         bikeAnim.SetFloat("BlendY", Input.GetAxis("Forward"));
         racerAnim.SetFloat("TurnBlend", turnInput);
-
 
         if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
             driftCheck = true;
@@ -101,6 +106,11 @@ public class Drive : MonoBehaviour
         } 
         else {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * .5f));
+            transform.position = sphere.transform.position;
+        }
+
+        if (stationaryTurning && turnInput != 0) {
+            transform.Rotate(0, 2f * Time.deltaTime * turnInput * turnStrength, 0, Space.Self);
             transform.position = sphere.transform.position;
         }
 
