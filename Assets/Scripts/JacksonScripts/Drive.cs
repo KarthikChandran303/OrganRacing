@@ -68,24 +68,25 @@ public class Drive : MonoBehaviour
 
         float dir = Input.GetAxis("Forward") - Input.GetAxis("Backward");
 
-        if (Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) {
-            stationaryTurning = true;
-        }
-        else if (dir > 0) {
+        //if (Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) {
+        //    stationaryTurning = true;
+        //}
+        //else if...
+        if (dir > 0) {
             speedInput = dir * forwardAccel * 1500f;
-            stationaryTurning = false;
+            //stationaryTurning = false;
         } 
         else if (dir < 0) {
             speedInput = dir * reverseAccel * 1500f;
             drifting = false;
-            stationaryTurning = false;
+            //stationaryTurning = false;
         }
 
         turnInput = Input.GetAxis("Horizontal");
 
         //Pass Animation Values
         bikeAnim.SetFloat("BlendX", turnInput);
-        bikeAnim.SetFloat("BlendY", Input.GetAxis("Forward"));
+        bikeAnim.SetFloat("BlendY", dir);
         racerAnim.SetFloat("TurnBlend", turnInput);
 
         if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
@@ -104,15 +105,34 @@ public class Drive : MonoBehaviour
             }
             driftCheck = false;
         } 
-        else {
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * dir * .5f));
+        else { //Normal Turning
+            //Calculate Angular Drag based on current velocity
+            float angularDrag = Mathf.Min(10 / (sphere.GetPointVelocity(sphere.position).magnitude + 1), .7f);
+            Debug.Log(angularDrag);
+
+
+            if (dir > 0)
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * 2f * angularDrag));
+            }
+            else if (dir == 0 && Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) //Turn slowly when using both forward and reverse input, don't apply angular drag
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * 1f));
+            }
+            else if (dir < 0) //Turn quickly and opposite direction if backing up, don't apply angular drag
+            { 
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * -2f));
+            }
+            //else do nothing
+            
             transform.position = sphere.transform.position;
         }
 
-        if (stationaryTurning && turnInput != 0) {
-            transform.Rotate(0, 2f * Time.deltaTime * turnInput * turnStrength, 0, Space.Self);
-            transform.position = sphere.transform.position;
-        }
+        //Stationary Turning
+        //if (stationaryTurning && turnInput != 0) {
+        //    transform.Rotate(0, 2f * Time.deltaTime * turnInput * turnStrength, 0, Space.Self);
+        //    transform.position = sphere.transform.position;
+        //}
 
         if (drifting) {
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * .5f));
