@@ -83,7 +83,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AmbientFactor: 0.1
+    - _AmbientFactor: 0.3
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -108,7 +108,7 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
-    - _SmoothnessCutoff: 0.1
+    - _SmoothnessCutoff: 0.8
     - _SmoothnessOffset: 0.3
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -116,8 +116,8 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _fresnelpower: 0.32
-    - _smoothness: 0.44
+    - _fresnelpower: 0.1
+    - _smoothness: 0.06
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -125,7 +125,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 0}
-    - _fresnelcolor: {r: 0.7225347, g: 0.8113208, b: 0.80407643, a: 0}
+    - _fresnelcolor: {r: 0.9056604, g: 0.61089355, b: 0.75045633, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5953203922712759146
 MonoBehaviour:
