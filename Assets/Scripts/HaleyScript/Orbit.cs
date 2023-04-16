@@ -22,7 +22,7 @@ public class Orbit : MonoBehaviour
             Vector3 position = transform.position + direction * distanceToCenter;
             GameObject orbiter = Instantiate(cell, position, Quaternion.identity, transform);
             orbiter.transform.localScale = new Vector3 (.2f, .2f, .2f);
-            orbiter.GetComponent<Renderer>().enabled = false;
+            orbiter.GetComponentInChildren<Renderer>().enabled = false;
             orbiter.transform.parent = transform;
             cells.Add(orbiter);
         }
@@ -36,7 +36,7 @@ public class Orbit : MonoBehaviour
 
     public void AddCell() {
         while (bloodManager.oxyBloodCellCount > visibleCells && visibleCells < numberOfCells) {
-            cells[visibleCells].GetComponent<Renderer>().enabled = true;
+            cells[visibleCells].GetComponentInChildren<Renderer>().enabled = true;
             visibleCells++;
         }
     }
@@ -44,7 +44,7 @@ public class Orbit : MonoBehaviour
     public void RemoveCell() {
         while (bloodManager.oxyBloodCellCount < visibleCells && visibleCells > 0) {
             visibleCells--;
-            cells[visibleCells].GetComponent<Renderer>().enabled = false;
+            cells[visibleCells].GetComponentInChildren<Renderer>().enabled = false;
         }
     }
 }
