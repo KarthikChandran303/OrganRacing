@@ -64,19 +64,12 @@ public class Drive : MonoBehaviour
     [SerializeField] ParticleSystem boostFX;
     [SerializeField] ParticleSystem dustFX;
 
-    [Header("Cameras")]
-    [SerializeField] CinemachineVirtualCamera fwdCam;
-    [SerializeField] CinemachineVirtualCamera bckCam;
-
 
     // Start is called before the first frame update
     void Start()
     {
        sphere.transform.parent = null;
        Instantiate(minimapIcon, transform);
-
-        fwdCam.Priority = 1;
-        bckCam.Priority = 0;
     }
 
     // Update is called once per frame
@@ -95,16 +88,11 @@ public class Drive : MonoBehaviour
         //    stationaryTurning = true;
         //}
         //else if...
-        Debug.Log(dir);
         if (dir > 0)
         {
             speedInput = dir * forwardAccel * 1500f;
             //stationaryTurning = false;
             dustFX.Play();
-
-            //Assign Camera Priority to front
-            fwdCam.Priority = 1;
-            //bckCam.Priority = 0;
 
         }
         else if (dir < 0)
@@ -113,10 +101,6 @@ public class Drive : MonoBehaviour
             drifting = false;
             //stationaryTurning = false;
             dustFX.Play();
-
-            //Assign Camera Priority to back
-            fwdCam.Priority = 0;
-            //bckCam.Priority = 1;
         }
         else if (Input.GetAxis("Forward") == 0 && Input.GetAxis("Backward") == 0)
         {
@@ -132,7 +116,7 @@ public class Drive : MonoBehaviour
         racerAnim.SetFloat("TurnBlend", turnInput);
 
         if (Input.GetButtonDown("Drift")) {
-            sphere.AddForce(transform.up * 1000f);
+            sphere.AddForce(transform.up * 20000f);
         }
 
         if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
@@ -180,7 +164,6 @@ public class Drive : MonoBehaviour
         if (turnInput != 0 && turnTimer < maxTurnTime)
         {
             turnTimer += Time.deltaTime;
-            Debug.Log(turnTimer);
             float driftMultiplier = driftCheck ? 3f : 1f;
             if (turnInput > 0) //&& isBike
             {

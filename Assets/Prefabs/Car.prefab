@@ -29092,10 +29092,10 @@ MonoBehaviour:
   minimapIcon: {fileID: 8473109487460716450, guid: 84020e5ffbaa7a14db9dd4c5dfaf09a2, type: 3}
   meshBody: {fileID: 5262514919654381194}
   sphere: {fileID: 6521094039948616351}
-  forwardAccel: 6
-  reverseAccel: 3
+  forwardAccel: 4
+  reverseAccel: 2
   turnStrength: 80
-  driftStrength: 140
+  driftStrength: 100
   turnAngle: 30
   timer: 0
   speedTimer: 0
@@ -29111,7 +29111,7 @@ MonoBehaviour:
   speedometer: {fileID: 0}
   engineSource: {fileID: 6521094039730238327}
   engineRev: {fileID: 8300000, guid: c4cddd6ca2ed38f45b023e6c2d15e431, type: 3}
-  engineOn: {fileID: 8300000, guid: bc5cc693b13f33b419d9dfbfddffaf37, type: 3}
+  engineOn: {fileID: 8300000, guid: 16a265a9ddb508b4782ce940769bde7e, type: 3}
   driftClickSource: {fileID: 6521094039730238326}
   driftClick1: {fileID: 8300000, guid: 1644e916c7225c3418c1b173284105aa, type: 3}
   driftClick2: {fileID: 8300000, guid: 47d32fe6c0d436d448f00d708ef3ad74, type: 3}
@@ -29132,8 +29132,6 @@ MonoBehaviour:
   driftSparks_3B: {fileID: 6734534250377546935}
   boostFX: {fileID: 8907503411360119523}
   dustFX: {fileID: 4340493694664470947}
-  fwdCam: {fileID: 0}
-  bckCam: {fileID: 0}
 --- !u!114 &6521094039730238321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29170,11 +29168,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bc5cc693b13f33b419d9dfbfddffaf37, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.21
-  m_Pitch: 1
-  Loop: 0
+  m_audioClip: {fileID: 8300000, guid: 16a265a9ddb508b4782ce940769bde7e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.201
+  m_Pitch: 1.55
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -29246,7 +29244,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.703
       inSlope: 0
       outSlope: 0
       tangentMode: 0
