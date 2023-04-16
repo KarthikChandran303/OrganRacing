@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8392314235358221249}
   - component: {fileID: 4749017709972125150}
-  - component: {fileID: 4272140072594429064}
+  - component: {fileID: 7727670264087940365}
   m_Layer: 8
-  m_Name: Magnet
+  m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4272140072594429064
+--- !u!114 &7727670264087940365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6455932870505485296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ac13a3ae673cac48b4a3ffcb2f4edc6, type: 3}
+  m_Script: {fileID: 11500000, guid: 23955faa29e3f5e438858c3126c6fd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pullForce: 0.1
+  bobSpeed: 2.5
+  bobHeight: 0.25
+  rotationSpeed: 45
