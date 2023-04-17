@@ -1,15 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplineMesh;
 
 public class CarGravity : MonoBehaviour
 {
     public Rigidbody rb;
+    public LayerMask layerMask;
+    //public Spline spline;
+    //[SerializeField] float dist;
 
     private void FixedUpdate()
     {
-        int layerMask = 1 << 12; // detect the track
+        //int layerMask = 1 << 12; // detect the track
         Vector3 updog = Vector3.up;
+
+        //dist = ???;
+
+        //updog = spline.GetSampleAtDistance(dist).up;
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, layerMask))
@@ -17,8 +25,8 @@ public class CarGravity : MonoBehaviour
             updog = hit.normal;
         }
 
-        if ((hit.point - transform.position).magnitude > 0.8)
-            rb.AddForce(-updog * 5000);
+        if ((hit.point - transform.position).magnitude > 0.8f)
+            rb.AddForce(-updog * 2000);
         else
             rb.AddForce(-updog * 50);
 

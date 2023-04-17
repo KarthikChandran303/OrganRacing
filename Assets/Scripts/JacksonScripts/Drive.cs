@@ -164,7 +164,7 @@ public class Drive : MonoBehaviour
         if (turnInput != 0 && turnTimer < maxTurnTime)
         {
             turnTimer += Time.deltaTime;
-            float driftMultiplier = driftCheck ? 3f : 1f;
+            float driftMultiplier = driftCheck ? 3f : 5f;
             if (turnInput > 0) //&& isBike
             {
                 meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, -30), driftMultiplier * rotStep);
