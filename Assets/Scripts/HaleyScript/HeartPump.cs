@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeartPump : MonoBehaviour
 {
-    [SerializeField] private float shrinkSize = 0.9f;
+    [SerializeField] private float shrinkSize = 0.1f;
     private HeartRate manager;
     private float pumpRate;
     private float scale;
@@ -16,9 +16,10 @@ public class HeartPump : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        pumpRate = manager.getCurrentRate();
-        //transform.localScale = new Vector3()
+        pumpRate = manager.getCurrentRate() / 300;
+        transform.localScale = new Vector3(-Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale, -Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale, -Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale);
+        
     }
 }

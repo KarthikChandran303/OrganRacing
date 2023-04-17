@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3562759135388687697}
   - component: {fileID: 3562759135388687698}
   - component: {fileID: 3562759135388687702}
+  - component: {fileID: 2733365916984754334}
   m_Layer: 11
   m_Name: Heart
   m_TagString: Organ
@@ -117,12 +118,24 @@ MonoBehaviour:
   health: 100
   healthLossRate: 0.5
   organName: Heart
-  healthLabel: {fileID: 0}
   healthBar: {fileID: 6081554154776275265, guid: 25ed135224ac3434a8d9aca73777f7a0, type: 3}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
   oxyPocket: {fileID: 3075844536901587208}
   heartManager: {fileID: 0}
   status: 0
+--- !u!114 &2733365916984754334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3562759135388687708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc12943376505784db2d12afbcba8514, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shrinkSize: 0.1
 --- !u!1 &3562759135511445377
 GameObject:
   m_ObjectHideFlags: 0
