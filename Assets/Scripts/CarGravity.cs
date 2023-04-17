@@ -26,7 +26,7 @@ public class CarGravity : MonoBehaviour
         }
 
         if ((hit.point - transform.position).magnitude > 0.8f)
-            rb.AddForce(-updog * 2000);
+            rb.AddForce(-updog * 10000);
         else
             rb.AddForce(-updog * 50);
 
