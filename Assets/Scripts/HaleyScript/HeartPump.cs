@@ -6,20 +6,19 @@ public class HeartPump : MonoBehaviour
 {
     [SerializeField] private float shrinkSize = 0.1f;
     private HeartRate manager;
-    private float pumpRate;
-    private float scale;
+    private float originalScale;
     // Start is called before the first frame update
     void Start()
     {
         manager = gameObject.GetComponentInParent<Heart>().heartManager;
-        scale = transform.localScale.x;
+        originalScale = transform.localScale.x;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        pumpRate = manager.getCurrentRate() / 300;
-        transform.localScale = new Vector3(-Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale, -Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale, -Mathf.PingPong(Time.time * pumpRate, shrinkSize) * scale + scale);
-        
+        float pumpRate = manager.getCurrentRate() / 300;
+        float scale = -Mathf.PingPong(Time.time * pumpRate, shrinkSize) * originalScale + originalScale;
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 }
