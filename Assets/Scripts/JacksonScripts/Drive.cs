@@ -192,7 +192,7 @@ public class Drive : MonoBehaviour
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * 3f * angularDrag));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
-            if (driftTime > 1.8f)
+            if (driftTime > 3f)
             {
                 if (!driftSparks_3B.isPlaying)
                 {
@@ -207,7 +207,7 @@ public class Drive : MonoBehaviour
                     driftClickSource.Play();
                 }
             }
-            else if (driftTime > 1.2f)
+            else if (driftTime > 1.5f)
             {
                 //Update Effects
                 if (!driftSparks_2B.isPlaying)
@@ -223,7 +223,7 @@ public class Drive : MonoBehaviour
                     driftClickSource.Play();
                 }
             }
-            else if (driftTime > .6f)
+            else if (driftTime > .75f)
             {
                 //Update Effects
                 if (!driftSparks_1B.isPlaying)
@@ -280,14 +280,14 @@ public class Drive : MonoBehaviour
             driftBoostSource.Play();
             boostFX.Play();
         }
-        else if (driftTime > 2) {
+        else if (driftTime > 1.5) {
             isSpeedBoosted = true;
             boostTime = 2;
             driftBoostSource.clip = driftBoost2;
             driftBoostSource.Play();
             boostFX.Play();
         }
-        else if (driftTime > 1) {
+        else if (driftTime > .75) {
             isSpeedBoosted = true;
             boostTime = 1;
             driftBoostSource.clip = driftBoost1;
