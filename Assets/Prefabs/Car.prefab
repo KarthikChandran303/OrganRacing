@@ -29120,7 +29120,11 @@ MonoBehaviour:
   driftBoost1: {fileID: 8300000, guid: d627b55687f1eee45ba24f6ac5b49153, type: 3}
   driftBoost2: {fileID: 8300000, guid: 525ddaca1b4bb0544bd3362f1135f228, type: 3}
   driftBoost3: {fileID: 8300000, guid: ffe916731c3c97d468f12e07110db0bc, type: 3}
-  wheelsSound: {fileID: 6521094039730238324}
+  wheelsSource: {fileID: 6521094039730238324}
+  wheelsNormal: {fileID: 8300000, guid: b86154efadcb26047b5afb642870307f, type: 3}
+  wheelsDrift1: {fileID: 8300000, guid: 0628696aa67cd3e4a911e623dc0c592b, type: 3}
+  wheelsDrift2: {fileID: 8300000, guid: 09aaa90a246965641af59cdb7029ae22, type: 3}
+  wheelsDrift3: {fileID: 8300000, guid: a6dc6140198ba504d89870532f90fde0, type: 3}
   impactSound: {fileID: 6521094039730238219}
   bikeAnim: {fileID: 1220441242861957269}
   racerAnim: {fileID: 1750619085804285971}
@@ -29173,7 +29177,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 16a265a9ddb508b4782ce940769bde7e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.201
+  m_Volume: 0.12
   m_Pitch: 1.55
   Loop: 1
   Mute: 0
