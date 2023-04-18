@@ -32,7 +32,7 @@ public class UI : MonoBehaviour
     }
 
     public void startGame() {
-         SceneManager.LoadScene("DuncanMitchellScene");
+         SceneManager.LoadScene("OrganMap");
     }
 
     public void toTitle() {
