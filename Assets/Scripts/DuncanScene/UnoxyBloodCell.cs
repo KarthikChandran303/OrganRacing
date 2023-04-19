@@ -9,8 +9,11 @@ public class UnoxyBloodCell : MonoBehaviour
         // Player picked up this blood cell
         if (other.gameObject.layer == 6)
         {
-            BloodCellManager.instance.AddUnoxyBloodCell();
-            Destroy(gameObject);
+            if (BloodCellManager.instance.BloodCellCount() < 12)
+            {
+                BloodCellManager.instance.AddUnoxyBloodCell();
+                Destroy(gameObject);
+            }
         }
     }
 }

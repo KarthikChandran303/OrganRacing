@@ -18,7 +18,7 @@ public class Organ : MonoBehaviour
 
     private float bloodCellUseRate = 2f;
 
-    [SerializeField] TMP_Text healthLabel;
+    //[SerializeField] TMP_Text healthLabel;
 
     [SerializeField] GameObject healthBar;
 
@@ -56,7 +56,7 @@ public class Organ : MonoBehaviour
         if (health < 0)
             health = 0;
 
-        healthLabel.text = organName + " Health: " + (int) health;
+        //healthLabel.text = organName + " Health: " + (int) health;
 
         hb.UpdateHealthBar(health / maxHealth);
 

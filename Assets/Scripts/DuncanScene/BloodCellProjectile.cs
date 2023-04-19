@@ -29,7 +29,7 @@ public class BloodCellProjectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // If this projectile collides with a wall, destroy it and create a blood cell pickup item.
-        if (other.gameObject.layer == 0 || other.gameObject.layer == 10)
+        if (other.gameObject.layer == 0 || other.gameObject.layer == 10 || other.gameObject.layer == 12)
         {
             Instantiate(bloodCell, transform.position, transform.rotation);
             Destroy(gameObject);

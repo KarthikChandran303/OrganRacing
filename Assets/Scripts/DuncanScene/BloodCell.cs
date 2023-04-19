@@ -16,8 +16,14 @@ public class BloodCell : MonoBehaviour
         // Player picked up this blood cell
         if (other.gameObject.layer == 6)
         {
-            BloodCellManager.instance.AddBloodCell();
-            Destroy(gameObject);
+            if (BloodCellManager.instance.BloodCellCount() < 12)
+            {
+                BloodCellManager.instance.AddBloodCell();
+                Destroy(gameObject);
+            } else
+            {
+                Debug.Log("sorry im full of blood cell");
+            }
         }
     }
 }

@@ -23,6 +23,11 @@ public class BloodCellManager : MonoBehaviour
         }
     }
 
+    public int BloodCellCount()
+    {
+        return oxyBloodCellCount + unoxyBloodCellCount;
+    }
+
     public void addOxyCell() {
         for (int i = 0; i < oxyBloodCellCount; i++) {
             oxyCellHolder.transform.GetChild(i).gameObject.SetActive(true);
@@ -52,12 +57,21 @@ public class BloodCellManager : MonoBehaviour
     {
         oxyBloodCellCount += amount;
         updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
     }
 
     public void AddUnoxyBloodCell(int amount = 1)
     {
         unoxyBloodCellCount += amount;
         updateCellCount();
+    }
+
+    public void OxygenateCells()
+    {
+        oxyBloodCellCount += unoxyBloodCellCount;
+        unoxyBloodCellCount = 0;
+        updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
     }
 
     public void UseBloodCell(int amount = 1)
@@ -67,6 +81,7 @@ public class BloodCellManager : MonoBehaviour
 
         oxyBloodCellCount -= amount;
         updateCellCount();
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().RemoveCell();
     }
 
     /// <summary>
