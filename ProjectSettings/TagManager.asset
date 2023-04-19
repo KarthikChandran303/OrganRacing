@@ -9,6 +9,7 @@ TagManager:
   - Organ
   - UI
   - PauseUI
+  - Alveoli
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - LayerMask
   - SeeThrough
   - OrganFloor
-  - 
+  - Alveoli
   - 
   - 
   - 
