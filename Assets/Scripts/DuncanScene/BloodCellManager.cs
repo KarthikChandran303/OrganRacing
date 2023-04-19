@@ -35,11 +35,15 @@ public class BloodCellManager : MonoBehaviour
         while(true) {
             Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
             if(!oxyInstances.ContainsKey(pos)) {
-                GameObject cell = Instantiate(oxyPickup, pos.position, pos.rotation);
+                GameObject cell = Instantiate(oxyPickup, pos);
                 oxyInstances.Add(pos, cell);
                 break;
             }
         }
+    }
+
+    public void Pickup(Transform pos) {
+        oxyInstances.Remove(pos);
     }
 
     public int BloodCellCount()

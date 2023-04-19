@@ -95,7 +95,7 @@ MonoBehaviour:
   minimapIcon: {fileID: 7557834865785470279, guid: a0f06b641e5c1dc4d835b34fde24ce94, type: 3}
   maxHealth: 100
   health: 0
-  healthLossRate: 0.5
+  healthLossRate: 0.2
   organName: Stomach
   healthBar: {fileID: 6081554154776275265, guid: 25ed135224ac3434a8d9aca73777f7a0, type: 3}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
