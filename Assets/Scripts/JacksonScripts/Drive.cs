@@ -32,6 +32,8 @@ public class Drive : MonoBehaviour
     public HeartRate heartManager;
     [SerializeField] TMP_Text speedometer;
 
+    GameObject minimapIconObj;
+
     [Header("Sounds")]
     [SerializeField] AudioSource engineSource;
     [SerializeField] AudioClip engineRev;
@@ -74,12 +76,14 @@ public class Drive : MonoBehaviour
     void Start()
     {
        sphere.transform.parent = null;
-       Instantiate(minimapIcon, transform);
+       minimapIconObj = Instantiate(minimapIcon);
     }
 
     // Update is called once per frame
     void Update()
     {
+        minimapIconObj.transform.position = new Vector3(transform.position.x, minimapIconObj.transform.position.y, transform.position.z);
+
         float heartSpeed = heartManager.getCurrentRate() / 100;
 
         if (speedometer != null)

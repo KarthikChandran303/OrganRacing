@@ -20,20 +20,25 @@ public class UserInterface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        brain = GameObject.Find("Brain").GetComponent<Organ>();
-        heart = GameObject.Find("Heart").GetComponent<Heart>();
-        liver = GameObject.Find("Liver").GetComponent<Liver>();
-        kidneys = GameObject.Find("Kidneys").GetComponent<Kidneys>();
-        stomach = GameObject.Find("Stomach").GetComponent<Stomach>();
+        try { brain = GameObject.Find("Brain").GetComponent<Organ>(); } catch { brain = null; }
+        try { heart = GameObject.Find("Heart").GetComponent<Heart>(); } catch { heart = null; }
+        try { liver = GameObject.Find("Liver").GetComponent<Liver>(); } catch { liver = null; }
+        try { kidneys = GameObject.Find("Kidneys").GetComponent<Kidneys>(); } catch { kidneys = null; }
+        try { stomach = GameObject.Find("Stomach").GetComponent<Stomach>(); } catch { stomach = null; }
     }
 
     // Update is called once per frame
     void Update()
     {
-        brainHealthBar.fillAmount = brain.health / brain.maxHealth;
-        heartHealthBar.fillAmount = heart.health / heart.maxHealth;
-        liverHealthBar.fillAmount = liver.health / liver.maxHealth;
-        kidneysHealthBar.fillAmount = kidneys.health / kidneys.maxHealth;
-        stomachHealthBar.fillAmount = stomach.health / stomach.maxHealth;
+        if (brain)
+            brainHealthBar.fillAmount = brain.health / brain.maxHealth;
+        if (heart)
+            heartHealthBar.fillAmount = heart.health / heart.maxHealth;
+        if (liver)
+            liverHealthBar.fillAmount = liver.health / liver.maxHealth;
+        if (kidneys)
+            kidneysHealthBar.fillAmount = kidneys.health / kidneys.maxHealth;
+        if (stomach)
+            stomachHealthBar.fillAmount = stomach.health / stomach.maxHealth;
     }
 }
