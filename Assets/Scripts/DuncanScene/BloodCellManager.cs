@@ -9,6 +9,7 @@ public class BloodCellManager : MonoBehaviour
 
     public int oxyBloodCellCount = 0;
     public int unoxyBloodCellCount = 0;
+    public int oxyCount = 0;
 
     public GameObject oxyCellHolder;
 
@@ -90,6 +91,20 @@ public class BloodCellManager : MonoBehaviour
         unoxyBloodCellCount = 0;
         updateCellCount();
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
+    }
+
+    public void AlveoliOxgenate()
+    {
+        oxyCount++;
+        if (oxyCount > 4) {
+            oxyCount = 0;
+            if (unoxyBloodCellCount > 0) {
+                unoxyBloodCellCount--;
+                oxyBloodCellCount++;
+                updateCellCount();
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
+            }
+        }
     }
 
     public void UseBloodCell(int amount = 1)
