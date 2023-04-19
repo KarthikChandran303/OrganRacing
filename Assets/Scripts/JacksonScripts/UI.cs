@@ -54,4 +54,9 @@ public class UI : MonoBehaviour
         isPaused = false;
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }
