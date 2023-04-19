@@ -14,6 +14,8 @@ public class DailySchedule : MonoBehaviour
 
     public GameObject activityDisplay;
 
+    public Animator thomasAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,24 +37,44 @@ public class DailySchedule : MonoBehaviour
     }
     
     void updateActivity() {
-        for (int i = 0; i < 4; i++) {
-            activityDisplay.transform.GetChild(i).gameObject.SetActive(false);
-        }
+        /*for (int i = 0; i < 4; i++) {
+            //activityDisplay.transform.GetChild(i).gameObject.SetActive(false);
+            thomasAnim.SetBool("IsResting", true);
+            thomasAnim.SetBool("IsExercising", false);
+            thomasAnim.SetBool("IsWorking", false);
+            thomasAnim.SetBool("IsEating", false);
+        }*/
         if (currentHour == 1 || currentHour == 4 || currentHour == 8 ) {
             heartManager.startEating();
-            activityDisplay.transform.GetChild(3).gameObject.SetActive(true);
+            //activityDisplay.transform.GetChild(3).gameObject.SetActive(true);
+            thomasAnim.SetBool("IsResting", false);
+            thomasAnim.SetBool("IsExercising", false);
+            thomasAnim.SetBool("IsWorking", false);
+            thomasAnim.SetBool("IsEating", true);
         }
         else if (currentHour == 0 || currentHour == 5 || currentHour == 9 ) {
             heartManager.startRest();
-            activityDisplay.transform.GetChild(2).gameObject.SetActive(true);
+            //activityDisplay.transform.GetChild(2).gameObject.SetActive(true);
+            thomasAnim.SetBool("IsResting", true);
+            thomasAnim.SetBool("IsExercising", false);
+            thomasAnim.SetBool("IsWorking", false);
+            thomasAnim.SetBool("IsEating", false);
         }
         else if (currentHour == 2 || currentHour == 7) {
             heartManager.startExercise();
-            activityDisplay.transform.GetChild(0).gameObject.SetActive(true);
+            //activityDisplay.transform.GetChild(0).gameObject.SetActive(true);
+            thomasAnim.SetBool("IsResting", false);
+            thomasAnim.SetBool("IsExercising", true);
+            thomasAnim.SetBool("IsWorking", false);
+            thomasAnim.SetBool("IsEating", false);
         }
         else if (currentHour == 3 || currentHour == 6 ) {
             heartManager.startWorking();
-            activityDisplay.transform.GetChild(1).gameObject.SetActive(true);
+            //activityDisplay.transform.GetChild(1).gameObject.SetActive(true);
+            thomasAnim.SetBool("IsResting", false);
+            thomasAnim.SetBool("IsExercising", false);
+            thomasAnim.SetBool("IsWorking", true);
+            thomasAnim.SetBool("IsEating", false);
         }
     }
 }
