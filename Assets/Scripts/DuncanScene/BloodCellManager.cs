@@ -13,6 +13,10 @@ public class BloodCellManager : MonoBehaviour
     public GameObject oxyCellHolder;
 
     public GameObject unoxyCellHolder;
+    [SerializeField] private GameObject pickupPositions;
+    [SerializeField] private GameObject oxyPickup;
+    private Dictionary<Transform, GameObject> oxyInstances = new();
+    [SerializeField] private float spawnRate = 5f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +24,20 @@ public class BloodCellManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+        }
+        InvokeRepeating("Spawn", 0, spawnRate);
+    }
+    private void Spawn() {
+        if(oxyInstances.Count == pickupPositions.transform.childCount || pickupPositions.transform.childCount == 0) {
+            return;
+        }
+        while(true) {
+            Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
+            if(!oxyInstances.ContainsKey(pos)) {
+                GameObject cell = Instantiate(oxyPickup, pos.position, pos.rotation);
+                oxyInstances.Add(pos, cell);
+                break;
+            }
         }
     }
 
