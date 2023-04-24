@@ -17,7 +17,7 @@ public class BloodCellManager : MonoBehaviour
     [SerializeField] private GameObject pickupPositions;
     [SerializeField] private GameObject oxyPickup;
     private Dictionary<Transform, GameObject> oxyInstances = new();
-    [SerializeField] private float spawnRate = 5f;
+    [SerializeField] private float spawnRate = 10f;
 
     // Start is called before the first frame update
     void Start()
