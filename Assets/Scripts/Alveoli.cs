@@ -9,14 +9,13 @@ public class Alveoli : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Drive>();
-        Debug.Log(player);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 6)
         {
-            Debug.Log("Hit Aveoli");
+            BloodCellManager.instance.AlveoliOxgenate();
         }
     }
 }

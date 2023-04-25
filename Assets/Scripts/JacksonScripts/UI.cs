@@ -21,7 +21,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetButtonDown("Pause")) {
             if (!isPaused) {
                 pauseGame();
             }
@@ -52,6 +52,11 @@ public class UI : MonoBehaviour
         main.SetActive(true);
         pause.SetActive(false);
         isPaused = false;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }

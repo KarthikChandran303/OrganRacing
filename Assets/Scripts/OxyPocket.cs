@@ -14,7 +14,7 @@ public class OxyPocket : MonoBehaviour
 
     private void Update()
     {
-        if (bloodCellCount > 0)
+        /*if (bloodCellCount > 0)
         {
             if (!bloodHaver)
             {
@@ -29,7 +29,7 @@ public class OxyPocket : MonoBehaviour
                 bloodHaver = false;
                 gameObject.GetComponent<Renderer>().material = emptyMaterial;
             }
-        }
+        }*/
     }
 
     private void OnTriggerEnter(Collider other)

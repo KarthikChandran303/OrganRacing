@@ -12,6 +12,7 @@ public class UnoxyBloodCell : MonoBehaviour
             if (BloodCellManager.instance.BloodCellCount() < 12)
             {
                 BloodCellManager.instance.AddUnoxyBloodCell();
+                BloodCellManager.instance.Pickup(transform.parent);
                 Destroy(gameObject);
             }
         }

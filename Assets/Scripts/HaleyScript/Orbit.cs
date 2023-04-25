@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    [SerializeField] private BloodCellManager bloodManager;
     [SerializeField] private int numberOfCells = 5;
     [SerializeField] private float distanceToCenter = 1.5f;
     [SerializeField] private float speed = 5.0f;
@@ -35,14 +34,14 @@ public class Orbit : MonoBehaviour
     }
 
     public void AddCell() {
-        while (bloodManager.oxyBloodCellCount > visibleCells && visibleCells < numberOfCells) {
+        while (BloodCellManager.instance.oxyBloodCellCount > visibleCells && visibleCells < numberOfCells) {
             cells[visibleCells].GetComponentInChildren<Renderer>().enabled = true;
             visibleCells++;
         }
     }
 
     public void RemoveCell() {
-        while (bloodManager.oxyBloodCellCount < visibleCells && visibleCells > 0) {
+        while (BloodCellManager.instance.oxyBloodCellCount < visibleCells && visibleCells > 0) {
             visibleCells--;
             cells[visibleCells].GetComponentInChildren<Renderer>().enabled = false;
         }

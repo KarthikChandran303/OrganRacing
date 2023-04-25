@@ -32,6 +32,8 @@ public class Drive : MonoBehaviour
     public HeartRate heartManager;
     [SerializeField] TMP_Text speedometer;
 
+    GameObject minimapIconObj;
+
     [Header("Sounds")]
     [SerializeField] AudioSource engineSource;
     [SerializeField] AudioClip engineRev;
@@ -47,7 +49,12 @@ public class Drive : MonoBehaviour
     [SerializeField] AudioClip driftBoost2;
     [SerializeField] AudioClip driftBoost3;
 
-    [SerializeField] AudioSource wheelsSound;
+    [SerializeField] AudioSource wheelsSource;
+    [SerializeField] AudioClip wheelsNormal;
+    [SerializeField] AudioClip wheelsDrift1;
+    [SerializeField] AudioClip wheelsDrift2;
+    [SerializeField] AudioClip wheelsDrift3;
+
     [SerializeField] AudioSource impactSound;
 
     [Header("Animation")]
@@ -69,12 +76,14 @@ public class Drive : MonoBehaviour
     void Start()
     {
        sphere.transform.parent = null;
-       Instantiate(minimapIcon, transform);
+       minimapIconObj = Instantiate(minimapIcon);
     }
 
     // Update is called once per frame
     void Update()
     {
+        minimapIconObj.transform.position = new Vector3(transform.position.x, minimapIconObj.transform.position.y, transform.position.z);
+
         float heartSpeed = heartManager.getCurrentRate() / 100;
 
         if (speedometer != null)
@@ -205,6 +214,8 @@ public class Drive : MonoBehaviour
                 {
                     driftClickSource.clip = driftClick3;
                     driftClickSource.Play();
+                    wheelsSource.clip = wheelsDrift3;
+                    wheelsSource.Play();
                 }
             }
             else if (driftTime > 1.5f)
@@ -221,6 +232,8 @@ public class Drive : MonoBehaviour
                 {
                     driftClickSource.clip = driftClick2;
                     driftClickSource.Play();
+                    wheelsSource.clip = wheelsDrift2;
+                    wheelsSource.Play();
                 }
             }
             else if (driftTime > .75f)
@@ -236,6 +249,8 @@ public class Drive : MonoBehaviour
                 {
                     driftClickSource.clip = driftClick1;
                     driftClickSource.Play();
+                    wheelsSource.clip = wheelsDrift1;
+                    wheelsSource.Play();
                 }
             }
         }
@@ -295,6 +310,8 @@ public class Drive : MonoBehaviour
             boostFX.Play();
         }
         driftTime = 0;
+        wheelsSource.clip = wheelsNormal;
+        wheelsSource.Play();
         driftClickSource.clip = null;
     }
 
@@ -313,13 +330,13 @@ public class Drive : MonoBehaviour
         }
 
         float speedMag = sphere.velocity.sqrMagnitude;
-        if (speedMag < 1000)
+        if (speedMag < 1000 && driftTime < 0.6f)
         {
-            wheelsSound.volume = speedMag / 1000;
+            wheelsSource.volume = speedMag / 1000;
         }
         else
         {
-            wheelsSound.volume = speedMag;
+            wheelsSource.volume = 1;
         }
     }
 

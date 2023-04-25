@@ -9,10 +9,15 @@ public class BloodCellManager : MonoBehaviour
 
     public int oxyBloodCellCount = 0;
     public int unoxyBloodCellCount = 0;
+    public int oxyCount = 0;
 
     public GameObject oxyCellHolder;
 
     public GameObject unoxyCellHolder;
+    [SerializeField] private GameObject pickupPositions;
+    [SerializeField] private GameObject oxyPickup;
+    private Dictionary<Transform, GameObject> oxyInstances = new();
+    [SerializeField] private float spawnRate = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +26,24 @@ public class BloodCellManager : MonoBehaviour
         {
             instance = this;
         }
+        InvokeRepeating("Spawn", 0, spawnRate);
+    }
+    private void Spawn() {
+        if(oxyInstances.Count == pickupPositions.transform.childCount || pickupPositions.transform.childCount == 0) {
+            return;
+        }
+        while(true) {
+            Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
+            if(!oxyInstances.ContainsKey(pos)) {
+                GameObject cell = Instantiate(oxyPickup, pos);
+                oxyInstances.Add(pos, cell);
+                break;
+            }
+        }
+    }
+
+    public void Pickup(Transform pos) {
+        oxyInstances.Remove(pos);
     }
 
     public int BloodCellCount()
@@ -72,6 +95,20 @@ public class BloodCellManager : MonoBehaviour
         unoxyBloodCellCount = 0;
         updateCellCount();
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
+    }
+
+    public void AlveoliOxgenate()
+    {
+        oxyCount++;
+        if (oxyCount > 4) {
+            oxyCount = 0;
+            if (unoxyBloodCellCount > 0) {
+                unoxyBloodCellCount--;
+                oxyBloodCellCount++;
+                updateCellCount();
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
+            }
+        }
     }
 
     public void UseBloodCell(int amount = 1)
