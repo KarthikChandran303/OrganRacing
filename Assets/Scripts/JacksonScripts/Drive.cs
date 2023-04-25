@@ -21,6 +21,7 @@ public class Drive : MonoBehaviour
     public float maxTurnTime = 1.5f;
     public float driftTime = 0;
     public bool drifting = false;
+    public bool isDriftBoosted = false;
     public bool isSpeedBoosted = false;
     public bool isSpeedReduced = false;
     public bool driftCheck = false;
@@ -195,6 +196,14 @@ public class Drive : MonoBehaviour
         //    transform.position = sphere.transform.position;
         //}
 
+        // Wheelie code
+        if (isSpeedBoosted) {
+            meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(-30, 0, 0), 4f * rotStep);
+        }
+        else {
+            meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, 0), 4f * rotStep);
+        }
+
         if (drifting)
         {
 
@@ -209,7 +218,6 @@ public class Drive : MonoBehaviour
                     driftSparks_3A.Play();
                     driftSparks_3B.Play();
                 }
-                Debug.Log("Drift level 3");
                 if (driftClickSource.clip != driftClick3)
                 {
                     driftClickSource.clip = driftClick3;
@@ -227,7 +235,6 @@ public class Drive : MonoBehaviour
                     driftSparks_2A.Play();
                     driftSparks_2B.Play();
                 }
-                Debug.Log("Drift level 2");
                 if (driftClickSource.clip != driftClick2)
                 {
                     driftClickSource.clip = driftClick2;
@@ -244,7 +251,6 @@ public class Drive : MonoBehaviour
                     driftSparks_1A.Play();
                     driftSparks_1B.Play();
                 }
-                Debug.Log("Drift level 1");
                 if (driftClickSource.clip != driftClick1)
                 {
                     driftClickSource.clip = driftClick1;
@@ -272,38 +278,39 @@ public class Drive : MonoBehaviour
 
         if (Input.GetAxis("Drift") == 0 && drifting) {
             driftCheck = false;
-            if (drifting) speedBoost();
+            if (drifting) DriftBoost();
         }
 
-        if (isSpeedBoosted || isSpeedReduced) {
+        if (isDriftBoosted || isSpeedReduced || isSpeedBoosted) {
             if (boostTime > 0) {
                 boostTime = boostTime - Time.deltaTime;
             }
             else {
                 isSpeedReduced = false;
+                isDriftBoosted = false;
                 isSpeedBoosted = false;
             }
         }
     }
 
-    public void speedBoost() {
+    public void DriftBoost() {
         drifting = false;
         if (driftTime > 3) {
-            isSpeedBoosted = true;
+            isDriftBoosted = true;
             boostTime = 3;
             driftBoostSource.clip = driftBoost3;
             driftBoostSource.Play();
             boostFX.Play();
         }
         else if (driftTime > 1.5) {
-            isSpeedBoosted = true;
+            isDriftBoosted = true;
             boostTime = 2;
             driftBoostSource.clip = driftBoost2;
             driftBoostSource.Play();
             boostFX.Play();
         }
         else if (driftTime > .75) {
-            isSpeedBoosted = true;
+            isDriftBoosted = true;
             boostTime = 1;
             driftBoostSource.clip = driftBoost1;
             driftBoostSource.Play();
@@ -318,14 +325,14 @@ public class Drive : MonoBehaviour
     private void FixedUpdate() {
         float heartSpeed = heartManager.getCurrentRate() / 100;
         if (Mathf.Abs(speedInput) > 0) {
-            if (isSpeedBoosted) {
-                sphere.AddForce(transform.forward * 1.5f * speedInput * heartSpeed);
+            if (isDriftBoosted || isSpeedBoosted) {
+                sphere.AddForce(transform.forward * 1.5f * speedInput * heartSpeed * Time.deltaTime * 30f);
             }
             else if (isSpeedReduced) {
-                sphere.AddForce(transform.forward * 0.5f * speedInput * heartSpeed);
+                sphere.AddForce(transform.forward * 0.5f * speedInput * heartSpeed  * Time.deltaTime * 30f);
             }
             else {
-                sphere.AddForce(transform.forward * speedInput * heartSpeed);
+                sphere.AddForce(transform.forward * speedInput * heartSpeed  * Time.deltaTime * 30f);
             }
         }
 
@@ -366,14 +373,16 @@ public class Drive : MonoBehaviour
     public void ApplySpeedBoost()
     {
         isSpeedBoosted = true;
+        isDriftBoosted = false;
         isSpeedReduced = false;
-        boostTime = 3;
+        boostTime = 5;
     }
 
     public void ApplySpeedReduction()
     {
-        isSpeedReduced = true;
         isSpeedBoosted = false;
+        isSpeedReduced = true;
+        isDriftBoosted = false;
         boostTime = 3;
     }
 }
