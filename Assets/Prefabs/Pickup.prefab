@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23955faa29e3f5e438858c3126c6fd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullForce: 0.1
+  pullForce: 0.5
   bobSpeed: 2.5
   bobHeight: 0.25
   rotationSpeed: 45

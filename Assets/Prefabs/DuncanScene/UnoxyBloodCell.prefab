@@ -152,9 +152,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2211350105629540620}
     m_Modifications:
+    - target: {fileID: 4749017709972125150, guid: 96b97edeb986ddf4fafbad16b432819a, type: 3}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6455932870505485296, guid: 96b97edeb986ddf4fafbad16b432819a, type: 3}
       propertyPath: m_Name
       value: Pickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7727670264087940365, guid: 96b97edeb986ddf4fafbad16b432819a, type: 3}
+      propertyPath: pullForce
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8392314235358221249, guid: 96b97edeb986ddf4fafbad16b432819a, type: 3}
       propertyPath: m_RootOrder
