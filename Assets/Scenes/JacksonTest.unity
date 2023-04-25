@@ -425,15 +425,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1953e78e988418143a8ff2fb44ea0871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 0
   healthLossRate: 0.5
   organName: Heart
-  healthLabel: {fileID: 1531807088}
-  healthBarSprite: {fileID: 388972450}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 129244350}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
   acidPositions: {fileID: 1592309153}
   acidPrefab: {fileID: 9023263620841785605, guid: 7538a7610d9436045bd611bd6ed80f6d, type: 3}
   acidGenRate: 5
@@ -549,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332b910dfd0a19348af2cde6ee5c2cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   bloodCellPrefab: {fileID: 2211350105629540616, guid: 38fbd5eac856ca746b156dc33c97dbc2, type: 3}
   bloodCellSpawnLocation: {fileID: 1080206336}
 --- !u!135 &35923089
@@ -1256,6 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d636f17f7ac33f43b88d33837444153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   bloodCellStorage: 0
   bloodCellPrefab: {fileID: 2211350105629540616, guid: 38fbd5eac856ca746b156dc33c97dbc2, type: 3}
   bloodCellSpawnLocation: {fileID: 144737833}
@@ -1879,131 +1882,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78402138}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &95833380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 95833381}
-  - component: {fileID: 95833385}
-  - component: {fileID: 95833384}
-  - component: {fileID: 95833383}
-  - component: {fileID: 95833386}
-  m_Layer: 11
-  m_Name: PulmanoryMuscle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &95833381
+--- !u!4 &95833381 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+  m_PrefabInstance: {fileID: 1511697196092998025}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95833380}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 769.13, y: -288.10648, z: -193.6}
-  m_LocalScale: {x: 30, y: 30, z: 30}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1059720032}
-  - {fileID: 908594764}
-  - {fileID: 1670205642}
-  m_Father: {fileID: 1931553335}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &95833383
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95833380}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &95833384
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95833380}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1cd611209d8afca44af3d582e693a047, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &95833385
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95833380}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &95833386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95833380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 520daa99fde0da5449f3f9230d451324, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
-  healthLossRate: 0.5
-  organName: Pulmanory Muscle
-  healthLabel: {fileID: 1435849158}
-  healthBarSprite: {fileID: 1943617515}
-  unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 1670205642}
-  heartManager: {fileID: 837583037}
-  boostPositions: {fileID: 201218914}
-  boostPrefab: {fileID: 8364358566375395921, guid: b712e881820bb9e4c870c46901c87b06, type: 3}
-  boostDeleteRate: 5
 --- !u!1 &106678660
 GameObject:
   m_ObjectHideFlags: 0
@@ -3187,7 +3070,8 @@ MonoBehaviour:
   currentHour: 0
   currentTime: 0
   heartManager: {fileID: 837583037}
-  UILabel: {fileID: 153689068}
+  activityDisplay: {fileID: 0}
+  thomasAnim: {fileID: 0}
 --- !u!4 &174139323
 Transform:
   m_ObjectHideFlags: 0
@@ -4752,6 +4636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332b910dfd0a19348af2cde6ee5c2cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   bloodCellPrefab: {fileID: 2211350105629540616, guid: 38fbd5eac856ca746b156dc33c97dbc2, type: 3}
   bloodCellSpawnLocation: {fileID: 1116908465}
 --- !u!135 &398099785
@@ -5324,8 +5209,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxyBloodCellCount: 0
   unoxyBloodCellCount: 0
-  oxyBloodCellCountLabel: {fileID: 316590234}
-  unoxyBloodCellCountLabel: {fileID: 732469370}
+  oxyCount: 0
+  oxyCellHolder: {fileID: 0}
+  unoxyCellHolder: {fileID: 0}
+  pickupPositions: {fileID: 0}
+  oxyPickup: {fileID: 0}
+  spawnRate: 10
 --- !u!4 &467352568
 Transform:
   m_ObjectHideFlags: 0
@@ -5453,15 +5342,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba4cdb2302667a4c9460df1a6d7c9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
   organName: Liver
-  healthLabel: {fileID: 1650156177}
-  healthBarSprite: {fileID: 62241978}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 1266744187}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
   cholesterolPositions: {fileID: 938916880}
   cholesterolPrefab: {fileID: 3247316246536641906, guid: 0d1ae5383ba271e46a38f29aefbc7fc4, type: 3}
   cholesterolGenRate: 5
@@ -6742,15 +6632,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0373fd951d0a0b740a380a9ba92bcb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
   organName: Heart
-  healthLabel: {fileID: 477698158}
-  healthBarSprite: {fileID: 1338460585}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 771583605}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
 --- !u!135 &654623320
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8721,83 +8612,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5166047889887642430, guid: bd674484f41095340b8dae2b200941ce, type: 3}
   m_PrefabInstance: {fileID: 810570810}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &825855106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 825855107}
-  - component: {fileID: 825855109}
-  - component: {fileID: 825855108}
-  m_Layer: 7
-  m_Name: Health Bar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &825855107
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825855106}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1943617514}
-  m_Father: {fileID: 908594764}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &825855108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825855106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &825855109
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 825855106}
-  m_CullTransparentMesh: 1
 --- !u!1 &834207386
 GameObject:
   m_ObjectHideFlags: 0
@@ -8860,7 +8674,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartDeteriorationFactor: 1
   bloodCellEffectiveness: 10
-  UILabel: {fileID: 292883293}
+  organsInDanger: 0
+  organsDying: 0
+  fullHealthMusic: {fileID: 0}
+  dangerMusic: {fileID: 0}
+  dyingMusic: {fileID: 0}
+  music: {fileID: 0}
 --- !u!4 &837583038
 Transform:
   m_ObjectHideFlags: 0
@@ -9287,107 +9106,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899309475}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &908594763
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 908594764}
-  - component: {fileID: 908594767}
-  - component: {fileID: 908594766}
-  - component: {fileID: 908594765}
-  m_Layer: 7
-  m_Name: MMCanvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &908594764
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908594763}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.033333335, y: 0.03333333, z: 0.03333333}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 825855107}
-  m_Father: {fileID: 95833381}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 5.333313}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &908594765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908594763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &908594766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908594763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
---- !u!223 &908594767
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908594763}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1001 &926444502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10347,103 +10065,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054214838}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1059720031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1059720032}
-  - component: {fileID: 1059720035}
-  - component: {fileID: 1059720034}
-  - component: {fileID: 1059720033}
-  m_Layer: 7
-  m_Name: Minimap Icon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1059720032
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059720031}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 95833381}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1059720033
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059720031}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1059720034
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059720031}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 1cd611209d8afca44af3d582e693a047, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1059720035
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059720031}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1066820463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12479,6 +12100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 332b910dfd0a19348af2cde6ee5c2cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   bloodCellPrefab: {fileID: 2211350105629540616, guid: 38fbd5eac856ca746b156dc33c97dbc2, type: 3}
   bloodCellSpawnLocation: {fileID: 445152201}
 --- !u!135 &1301322757
@@ -13437,15 +13059,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b89d9cc58ee7894880a4ee30852062f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 0
   healthLossRate: 0.5
   organName: Heart
-  healthLabel: {fileID: 1963974469}
-  healthBarSprite: {fileID: 625342101}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 1670205642}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
   CarCamera: {fileID: 0}
   boostDeleteRate: 5
 --- !u!1 &1411904225
@@ -15832,15 +15455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe3e68ce5f876e45a09d0ca61313576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
   organName: Brain
-  healthLabel: {fileID: 1473515494}
-  healthBarSprite: {fileID: 453837800}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 39411046}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
 --- !u!135 &1581139150
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16728,15 +16352,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d448d94e7dd03841b9c7bc9d9b1143e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
   maxHealth: 100
   health: 100
   healthLossRate: 0.5
   organName: Kidneys
-  healthLabel: {fileID: 421893101}
-  healthBarSprite: {fileID: 1354183952}
+  healthBar: {fileID: 0}
   unoxyBloodCellPrefab: {fileID: 2211350105629540616, guid: f2e2640d935a2fd4da1d94e2c29afcf7, type: 3}
-  bloodCellSpawnLocation: {fileID: 46510057}
+  oxyPocket: {fileID: 0}
   heartManager: {fileID: 837583037}
+  status: 0
 --- !u!135 &1659617451
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16959,37 +16584,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662769448}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1670205641
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1670205642}
-  m_Layer: 0
-  m_Name: BloodCellSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1670205642
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670205641}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.40499982, z: 0.61}
-  m_LocalScale: {x: 0.033333335, y: 0.033333335, z: 0.033333335}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 95833381}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1678619175
 GameObject:
   m_ObjectHideFlags: 0
@@ -19893,82 +19487,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931916962}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1943617513
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1943617514}
-  - component: {fileID: 1943617516}
-  - component: {fileID: 1943617515}
-  m_Layer: 7
-  m_Name: HP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1943617514
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943617513}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 825855107}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000022888184}
-  m_SizeDelta: {x: 100, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1943617515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943617513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.03605604, g: 1, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 0
-  m_FillAmount: 0.505
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1943617516
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943617513}
-  m_CullTransparentMesh: 1
 --- !u!1 &1950034043
 GameObject:
   m_ObjectHideFlags: 0
@@ -20012,13 +19530,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d3c851b8c7dfe540b40a876dc90e702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimapIcon: {fileID: 0}
+  meshBody: {fileID: 0}
   sphere: {fileID: 758405904}
   forwardAccel: 8
   reverseAccel: 4
   turnStrength: 60
   driftStrength: 120
+  turnAngle: 30
   timer: 0
   speedTimer: 0
+  turnTimer: 0
+  maxTurnTime: 1.5
   driftTime: 0
   drifting: 0
   isSpeedBoosted: 0
@@ -20026,6 +19549,34 @@ MonoBehaviour:
   driftCheck: 0
   boostTime: 0
   heartManager: {fileID: 837583037}
+  speedometer: {fileID: 0}
+  engineSource: {fileID: 0}
+  engineRev: {fileID: 0}
+  engineOn: {fileID: 0}
+  driftClickSource: {fileID: 0}
+  driftClick1: {fileID: 0}
+  driftClick2: {fileID: 0}
+  driftClick3: {fileID: 0}
+  driftBoostSource: {fileID: 0}
+  driftBoost1: {fileID: 0}
+  driftBoost2: {fileID: 0}
+  driftBoost3: {fileID: 0}
+  wheelsSource: {fileID: 0}
+  wheelsNormal: {fileID: 0}
+  wheelsDrift1: {fileID: 0}
+  wheelsDrift2: {fileID: 0}
+  wheelsDrift3: {fileID: 0}
+  impactSound: {fileID: 0}
+  bikeAnim: {fileID: 0}
+  racerAnim: {fileID: 0}
+  driftSparks_1A: {fileID: 0}
+  driftSparks_2A: {fileID: 0}
+  driftSparks_3A: {fileID: 0}
+  driftSparks_1B: {fileID: 0}
+  driftSparks_2B: {fileID: 0}
+  driftSparks_3B: {fileID: 0}
+  boostFX: {fileID: 0}
+  dustFX: {fileID: 0}
 --- !u!4 &1950034046
 Transform:
   m_ObjectHideFlags: 0
@@ -21865,3 +21416,68 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141601313}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1511697196092998025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1931553335}
+    m_Modifications:
+    - target: {fileID: 1511697196018666659, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: heartManager
+      value: 
+      objectReference: {fileID: 837583037}
+    - target: {fileID: 1511697196018666659, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: boostPositions
+      value: 
+      objectReference: {fileID: 201218914}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 769.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -288.10648
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -193.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666668, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511697196018666669, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
+      propertyPath: m_Name
+      value: PulmanoryMuscle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6dd98f253da13e04bac193cab9ebd654, type: 3}
