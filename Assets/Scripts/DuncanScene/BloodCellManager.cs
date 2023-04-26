@@ -19,7 +19,8 @@ public class BloodCellManager : MonoBehaviour
     private Dictionary<Transform, GameObject> oxyInstances = new();
     [SerializeField] private float spawnRate = 10f;
     [SerializeField] private List<GameObject> spawnablePositions;
-    private int nodeCount = 0;
+    [SerializeField] private int maxNumberOfSpawns = 50;
+    [SerializeField] private float minDistanceBetweenInstances = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -28,25 +29,37 @@ public class BloodCellManager : MonoBehaviour
         {
             instance = this;
         }
-        for (int i = 0; i < spawnablePositions.Count; i++) {
-            nodeCount += spawnablePositions[i].GetComponent<Spline>().nodes.Count - 2;
-        }
         InvokeRepeating("Spawn", 0, spawnRate);
     }
     private void Spawn() {
-        if(oxyInstances.Count == nodeCount || nodeCount == 0) {
+        if(oxyInstances.Count == maxNumberOfSpawns) {
             return;
         }
-        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
-        Spline spline = spawnPos.GetComponent<Spline>();
-        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
-        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
-        GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
-        //cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, sample.up);
-        //cell.transform.GetChild(2).localRotation = new Quaternion(cell.transform.GetChild(2).localRotation.x - 90, cell.transform.GetChild(2).localRotation.y , cell.transform.GetChild(2).localRotation.z, cell.transform.GetChild(2).localRotation.w);
-        cell.transform.parent = transform;
-        oxyInstances.Add(cell.transform, cell);
+        while (true) {
+            GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+            Spline spline = spawnPos.GetComponent<Spline>();
+            CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+            Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
+            GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
+            if (oxyInstances.Keys.Count == 0) {
+                cell.transform.parent = transform;
+                oxyInstances.Add(cell.transform, cell);
+                return;
+            }
+            foreach (Transform o in oxyInstances.Keys)
+            {
+                if (Vector3.Distance(cell.transform.position, o.transform.position) > minDistanceBetweenInstances) {
+                    cell.transform.parent = transform;
+                    oxyInstances.Add(cell.transform, cell);
+                    return;
+                } else {
+                    Destroy(cell);
+                }
+            }
+            //cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, sample.up);
+            //cell.transform.GetChild(2).localRotation = new Quaternion(cell.transform.GetChild(2).localRotation.x - 90, cell.transform.GetChild(2).localRotation.y , cell.transform.GetChild(2).localRotation.z, cell.transform.GetChild(2).localRotation.w);
+        }
         // while(true) {
         //     Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
         //     if(!oxyInstances.ContainsKey(pos)) {

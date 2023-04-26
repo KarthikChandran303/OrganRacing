@@ -102,9 +102,10 @@ MonoBehaviour:
   oxyPocket: {fileID: 6533933241149470124}
   heartManager: {fileID: 0}
   status: 0
-  acidPositions: {fileID: 0}
+  spawnablePositions: []
   acidPrefab: {fileID: 9023263620841785605, guid: 7538a7610d9436045bd611bd6ed80f6d, type: 3}
   acidGenRate: 5
+  minDistanceBetweenInstances: 50
 --- !u!82 &4716358888015701651
 AudioSource:
   m_ObjectHideFlags: 0

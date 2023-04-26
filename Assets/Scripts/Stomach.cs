@@ -17,6 +17,8 @@ public class Stomach : Organ
 
     private AudioSource rumble;
 
+    [SerializeField] private float minDistanceBetweenInstances = 50f;
+
     protected void Start()
     {
         base.Start();
@@ -27,12 +29,12 @@ public class Stomach : Organ
     {
         base.HealthEffects();
 
-        if (health < 100 && !dying)
+        if (health < 30 && !dying)
         {
             dying = true;
             Invoke("StomachDying", acidGenRate);
         }
-        else if (health >= 100 && dying)
+        else if (health >= 30 && dying)
         {
             dying = false;
             Invoke("CleanAcid", acidGenRate);
@@ -41,13 +43,13 @@ public class Stomach : Organ
 
     private void StomachDying()
     {
-        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
-        Spline spline = spawnPos.GetComponent<Spline>();
-        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
-        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
         while (true) {
+            GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+            Spline spline = spawnPos.GetComponent<Spline>();
+            CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+            Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
             GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
-            acid.transform.localRotation = Quaternion.FromToRotation(acid.transform.up, sample.up);
+            //acid.transform.localRotation = Quaternion.FromToRotation(acid.transform.up, sample.up);
             acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 5, acid.transform.position.x + 5), acid.transform.position.y, acid.transform.position.z);
             acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
             acid.transform.parent = transform;
@@ -63,7 +65,7 @@ public class Stomach : Organ
             }
             foreach (Transform a in acidInstances.Keys)
             {
-                if (Vector3.Distance(acid.transform.position, a.transform.position) > 50) {
+                if (Vector3.Distance(acid.transform.position, a.transform.position) > minDistanceBetweenInstances) {
                     rumble.Play();
                     acidInstances.Add(acid.transform, acid);
                     // Continue dying if dying
@@ -72,6 +74,8 @@ public class Stomach : Organ
                         Invoke("StomachDying", acidGenRate);
                     }
                     return;
+                } else {
+                    Destroy(acid);
                 }
             }
         }
