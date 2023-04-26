@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplineMesh;
 
 public class Stomach : Organ
 {
-    public GameObject acidPositions;
+    [SerializeField] private List<GameObject> spawnablePositions;
 
     public GameObject acidPrefab;
 
@@ -26,12 +27,12 @@ public class Stomach : Organ
     {
         base.HealthEffects();
 
-        if (health < 30 && !dying)
+        if (health < 100 && !dying)
         {
             dying = true;
             Invoke("StomachDying", acidGenRate);
         }
-        else if (health >= 30 && dying)
+        else if (health >= 100 && dying)
         {
             dying = false;
             Invoke("CleanAcid", acidGenRate);
@@ -40,22 +41,39 @@ public class Stomach : Organ
 
     private void StomachDying()
     {
-        foreach (Transform a in acidPositions.transform)
-        {
-            // Generate a chloestrol blockage in some location that doesn't already contain one
-            if (!acidInstances.ContainsKey(a))
-            {
+        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+        Spline spline = spawnPos.GetComponent<Spline>();
+        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+        while (true) {
+            GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
+            acid.transform.localRotation = Quaternion.FromToRotation(acid.transform.up, sample.up);
+            acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 5, acid.transform.position.x + 5), acid.transform.position.y, acid.transform.position.z);
+            acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
+            acid.transform.parent = transform;
+            if (acidInstances.Keys.Count == 0) {
                 rumble.Play();
-                GameObject acid = Instantiate(acidPrefab, a.transform.position, a.transform.rotation);
-                acidInstances.Add(a, acid);
-                break;
+                acidInstances.Add(acid.transform, acid);
+                // Continue dying if dying
+                if (dying)
+                {
+                    Invoke("StomachDying", acidGenRate);
+                }
+                return;
             }
-        }
-
-        // Continue dying if dying
-        if (dying)
-        {
-            Invoke("StomachDying", acidGenRate);
+            foreach (Transform a in acidInstances.Keys)
+            {
+                if (Vector3.Distance(acid.transform.position, a.transform.position) > 50) {
+                    rumble.Play();
+                    acidInstances.Add(acid.transform, acid);
+                    // Continue dying if dying
+                    if (dying)
+                    {
+                        Invoke("StomachDying", acidGenRate);
+                    }
+                    return;
+                }
+            }
         }
     }
 

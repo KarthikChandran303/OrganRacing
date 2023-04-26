@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
+using SplineMesh;
 
 public class BloodCellManager : MonoBehaviour
 {
@@ -15,11 +15,11 @@ public class BloodCellManager : MonoBehaviour
     public GameObject oxyCellHolder;
 
     public GameObject unoxyCellHolder;
-    [SerializeField] private GameObject pickupPositions;
     [SerializeField] private GameObject oxyPickup;
     private Dictionary<Transform, GameObject> oxyInstances = new();
     [SerializeField] private float spawnRate = 10f;
     [SerializeField] private List<GameObject> spawnablePositions;
+    private int nodeCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +28,25 @@ public class BloodCellManager : MonoBehaviour
         {
             instance = this;
         }
+        for (int i = 0; i < spawnablePositions.Count; i++) {
+            nodeCount += spawnablePositions[i].GetComponent<Spline>().nodes.Count - 2;
+        }
         InvokeRepeating("Spawn", 0, spawnRate);
     }
     private void Spawn() {
-        if(oxyInstances.Count == pickupPositions.transform.childCount || pickupPositions.transform.childCount == 0) {
+        if(oxyInstances.Count == nodeCount || nodeCount == 0) {
             return;
         }
+        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+        Spline spline = spawnPos.GetComponent<Spline>();
+        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
+        GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
+        //cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, sample.up);
+        //cell.transform.GetChild(2).localRotation = new Quaternion(cell.transform.GetChild(2).localRotation.x - 90, cell.transform.GetChild(2).localRotation.y , cell.transform.GetChild(2).localRotation.z, cell.transform.GetChild(2).localRotation.w);
+        cell.transform.parent = transform;
+        oxyInstances.Add(cell.transform, cell);
         // while(true) {
         //     Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
         //     if(!oxyInstances.ContainsKey(pos)) {
@@ -42,17 +55,18 @@ public class BloodCellManager : MonoBehaviour
         //         break;
         //     }
         // }
-        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
-        Mesh mesh = spawnPos.GetComponent<MeshCollider>().sharedMesh;
-        Vector3 randomPosition = spawnPos.transform.TransformPoint(mesh.vertices[Random.Range(0, mesh.vertexCount)]);
-        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1.5f, randomPosition.z);
-        GameObject cell = Instantiate(oxyPickup, randomPosition, Quaternion.identity);
+        // Mesh mesh = spawnPos.GetComponent<MeshCollider>().sharedMesh;
+        // Vector3 randomPosition = spawnPos.transform.TransformPoint(mesh.vertices[Random.Range(0, mesh.vertexCount)]);
+        // randomPosition = new Vector3(randomPosition.x, randomPosition.y + 5f, randomPosition.z);
         // RaycastHit hit;
+        // if (Physics.Raycast(randomPosition, Vector3.down, out hit)) {
+        //     randomPosition = hit.point;
+        // }
+        // randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
+        // GameObject cell = Instantiate(oxyPickup, randomPosition, Quaternion.identity);
         // if (Physics.Raycast(cell.transform.GetChild(2).position, Vector3.down, out hit)) {
         //     cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, hit.normal);
         // }
-        cell.transform.parent = transform;
-        oxyInstances.Add(cell.transform, cell);
     }
 
     public void Pickup(Transform pos) {
