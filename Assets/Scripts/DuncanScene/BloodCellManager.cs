@@ -35,31 +35,30 @@ public class BloodCellManager : MonoBehaviour
         if(oxyInstances.Count == maxNumberOfSpawns) {
             return;
         }
-        while (true) {
-            GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
-            Spline spline = spawnPos.GetComponent<Spline>();
-            CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
-            Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
-            GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
-            if (oxyInstances.Keys.Count == 0) {
-                cell.transform.parent = transform;
-                oxyInstances.Add(cell.transform, cell);
-                return;
+        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+        Spline spline = spawnPos.GetComponent<Spline>();
+        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
+        GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
+        if (oxyInstances.Keys.Count == 0) {
+            cell.transform.parent = transform;
+            oxyInstances.Add(cell.transform, cell);
+            return;
+        }
+        foreach (Transform o in oxyInstances.Keys)
+        {
+            if (Vector3.Distance(cell.transform.position, o.transform.position) < minDistanceBetweenInstances) {
+                Debug.Log("hi");
+                Destroy(cell);
+                Invoke("Spawn", 0);
             }
-            foreach (Transform o in oxyInstances.Keys)
-            {
-                if (Vector3.Distance(cell.transform.position, o.transform.position) > minDistanceBetweenInstances) {
-                    cell.transform.parent = transform;
-                    oxyInstances.Add(cell.transform, cell);
-                    return;
-                } else {
-                    Destroy(cell);
-                }
-            }
+        }
+        cell.transform.parent = transform;
+        oxyInstances.Add(cell.transform, cell);
             //cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, sample.up);
             //cell.transform.GetChild(2).localRotation = new Quaternion(cell.transform.GetChild(2).localRotation.x - 90, cell.transform.GetChild(2).localRotation.y , cell.transform.GetChild(2).localRotation.z, cell.transform.GetChild(2).localRotation.w);
-        }
+        
         // while(true) {
         //     Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
         //     if(!oxyInstances.ContainsKey(pos)) {
