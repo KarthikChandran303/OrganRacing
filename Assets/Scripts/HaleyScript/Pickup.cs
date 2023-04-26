@@ -8,7 +8,7 @@ public class Pickup : MonoBehaviour
     [SerializeField] private float bobSpeed = 2.5f;
     [SerializeField] private float bobHeight = 0.25f;
     [SerializeField] private float rotationSpeed = 45f;
-    private float yPos;
+    public float yPos;
     private bool bob = true;
     private void Awake() {
         yPos = transform.parent.position.y;
