@@ -6,6 +6,13 @@ public class UnoxyBloodCell : MonoBehaviour
 {
     [SerializeField] Pickup pickup;
 
+    Transform spawnTransform;
+
+    private void Start()
+    {
+        spawnTransform = transform;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         // Player picked up this blood cell
@@ -15,7 +22,7 @@ public class UnoxyBloodCell : MonoBehaviour
             {
                 BloodCellManager.instance.AddUnoxyBloodCell();
                 if (transform.parent)
-                    BloodCellManager.instance.Pickup(transform.parent);
+                    BloodCellManager.instance.Pickup(spawnTransform);
                 Destroy(gameObject);
             }
         }

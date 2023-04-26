@@ -41,44 +41,29 @@ public class BloodCellManager : MonoBehaviour
         Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
         randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
         GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
-        if (oxyInstances.Keys.Count == 0) {
-            cell.transform.parent = transform;
-            oxyInstances.Add(cell.transform, cell);
-            return;
-        }
+
         foreach (Transform o in oxyInstances.Keys)
         {
             if (Vector3.Distance(cell.transform.position, o.transform.position) < minDistanceBetweenInstances) {
                 Debug.Log("hi");
                 Destroy(cell);
                 Invoke("Spawn", 0);
+                return;
             }
         }
         cell.transform.parent = transform;
         oxyInstances.Add(cell.transform, cell);
-            //cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, sample.up);
-            //cell.transform.GetChild(2).localRotation = new Quaternion(cell.transform.GetChild(2).localRotation.x - 90, cell.transform.GetChild(2).localRotation.y , cell.transform.GetChild(2).localRotation.z, cell.transform.GetChild(2).localRotation.w);
-        
-        // while(true) {
-        //     Transform pos = pickupPositions.transform.GetChild(Random.Range(0, pickupPositions.transform.childCount));
-        //     if(!oxyInstances.ContainsKey(pos)) {
-        //         GameObject cell = Instantiate(oxyPickup, pos);
-        //         oxyInstances.Add(pos, cell);
-        //         break;
-        //     }
-        // }
-        // Mesh mesh = spawnPos.GetComponent<MeshCollider>().sharedMesh;
-        // Vector3 randomPosition = spawnPos.transform.TransformPoint(mesh.vertices[Random.Range(0, mesh.vertexCount)]);
-        // randomPosition = new Vector3(randomPosition.x, randomPosition.y + 5f, randomPosition.z);
-        // RaycastHit hit;
-        // if (Physics.Raycast(randomPosition, Vector3.down, out hit)) {
-        //     randomPosition = hit.point;
-        // }
-        // randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
-        // GameObject cell = Instantiate(oxyPickup, randomPosition, Quaternion.identity);
-        // if (Physics.Raycast(cell.transform.GetChild(2).position, Vector3.down, out hit)) {
-        //     cell.transform.GetChild(2).rotation = Quaternion.FromToRotation(cell.transform.GetChild(2).up, hit.normal);
-        // }
+
+        // raycast to track
+        RaycastHit hit;
+        if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+        {
+            cell.transform.GetChild(1).rotation = Quaternion.FromToRotation(cell.transform.GetChild(1).up, hit.normal);
+        }
+        else
+        {
+            cell.transform.GetChild(1).rotation = Quaternion.FromToRotation(cell.transform.GetChild(1).up, sample.up);
+        }
     }
 
     public void Pickup(Transform pos) {
