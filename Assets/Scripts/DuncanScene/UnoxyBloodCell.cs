@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class UnoxyBloodCell : MonoBehaviour
 {
+    [SerializeField] Pickup pickup;
+
     private void OnTriggerEnter(Collider other)
     {
         // Player picked up this blood cell
@@ -12,9 +14,26 @@ public class UnoxyBloodCell : MonoBehaviour
             if (BloodCellManager.instance.BloodCellCount() < 12)
             {
                 BloodCellManager.instance.AddUnoxyBloodCell();
-                BloodCellManager.instance.Pickup(transform.parent);
+                if (transform.parent)
+                    BloodCellManager.instance.Pickup(transform.parent);
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void SpawnFromOxyPocket()
+    {
+        Animator an = GetComponent<Animator>();
+        pickup.enabled = false;
+        an.enabled = true;
+        an.Play("generate");
+        Invoke("ReenablePickup", 2);
+    }
+
+    private void ReenablePickup()
+    {
+        pickup.yPos = transform.position.y;
+        pickup.enabled = true;
+        gameObject.transform.parent = null;
     }
 }
