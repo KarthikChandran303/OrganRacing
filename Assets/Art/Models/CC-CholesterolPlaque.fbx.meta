@@ -3,7 +3,12 @@ guid: 60d6a5200cda00a41b9a58ec75540dad
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CholesterolPlaque
+    second: {fileID: 2100000, guid: a91f5dfffd4154609bc37fc21c2248cd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -25,15 +25,6 @@ public class OxyPocket : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        bloodCellSpawn.LookAt(new Vector3(playerPos.x, bloodCellSpawn.position.y, playerPos.z));
-
-        GameObject go = Instantiate(bloodCellPrefab, bloodCellSpawn);
-        go.GetComponent<UnoxyBloodCell>().SpawnFromOxyPocket();
-    }
-
     private void GenerateBloodCell()
     {
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;

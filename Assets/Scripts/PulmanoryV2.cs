@@ -10,7 +10,7 @@ public class PulmanoryV2 : Organ
 
     [SerializeField] HealthBar myHealthBar;
 
-    private void Update()
+    protected new void Update()
     {
         base.Update();
 

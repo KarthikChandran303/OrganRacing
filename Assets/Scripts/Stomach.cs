@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplineMesh;
 
 public class Stomach : Organ
 {
-    public GameObject acidPositions;
+    [SerializeField] private List<GameObject> spawnablePositions;
 
     public GameObject acidPrefab;
 
@@ -16,7 +17,10 @@ public class Stomach : Organ
 
     private AudioSource rumble;
 
-    protected void Start()
+    [SerializeField] private float minDistanceBetweenInstances = 50f;
+    [SerializeField] private int maxNumberOfSpawns = 50;
+
+    protected new void Start()
     {
         base.Start();
         rumble = GetComponent<AudioSource>();
@@ -40,23 +44,56 @@ public class Stomach : Organ
 
     private void StomachDying()
     {
-        foreach (Transform a in acidPositions.transform)
-        {
-            // Generate a chloestrol blockage in some location that doesn't already contain one
-            if (!acidInstances.ContainsKey(a))
+        if(acidInstances.Count == maxNumberOfSpawns) {
+            return;
+        }
+        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+        if (spawnPos.GetComponent<Spline>()) {
+            Spline spline = spawnPos.GetComponent<Spline>();
+            CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+            Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 4, randomPosition.z);
+            //acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
+            // raycast to track
+            foreach (Transform a in acidInstances.Keys)
             {
-                rumble.Play();
-                GameObject acid = Instantiate(acidPrefab, a.transform.position, a.transform.rotation);
-                acidInstances.Add(a, acid);
-                break;
+                if (Vector3.Distance(randomPosition, a.transform.position) < minDistanceBetweenInstances) {
+                    Debug.Log("bye");
+                    //Invoke("StomachDying", 0);
+                    return;
+                }
             }
+            GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
+            RaycastHit hit;
+            if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+            {
+                //Debug.DrawRay(randomPosition, hit.normal * 100, Color.magenta, 1000);
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, hit.normal);
+                acid.transform.position = new Vector3(hit.point.x, hit.point.y + 8, Random.Range(hit.point.z - 4, hit.point.z + 4));
+            }
+            else
+            {
+                //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, sample.up);
+                acid.transform.position = new Vector3(sample.location.x, sample.location.y, Random.Range(sample.location.z - 4, sample.location.z + 4));
+            }
+            if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+            {
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, hit.normal);
+                acid.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            }
+            rumble.Play();
+            acid.transform.parent = transform;
+            acidInstances.Add(acid.transform, acid);
+            // Continue dying if dying
+            if (dying)
+            {
+                Invoke("StomachDying", acidGenRate);
+            }
+        } else {
+            //For in case we want acid in chambers as well
         }
-
-        // Continue dying if dying
-        if (dying)
-        {
-            Invoke("StomachDying", acidGenRate);
-        }
+        
     }
 
     private void CleanAcid()
