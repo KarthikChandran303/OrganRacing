@@ -39,31 +39,28 @@ public class BloodCellManager : MonoBehaviour
         Spline spline = spawnPos.GetComponent<Spline>();
         CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
         Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1f, randomPosition.z);
-        GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
-
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 1.5f, randomPosition.z);
         foreach (Transform o in oxyInstances.Keys)
         {
-            if (Vector3.Distance(cell.transform.position, o.transform.position) < minDistanceBetweenInstances) {
+            if (Vector3.Distance(randomPosition, o.transform.position) < minDistanceBetweenInstances) {
                 Debug.Log("hi");
-                Destroy(cell);
-                Invoke("Spawn", 0);
+                //Invoke("Spawn", 0);
                 return;
             }
         }
-        cell.transform.parent = transform;
-        oxyInstances.Add(cell.transform, cell);
-
+        GameObject cell = Instantiate(oxyPickup, randomPosition, oxyPickup.transform.rotation);
         // raycast to track
         RaycastHit hit;
         if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
         {
-            cell.transform.GetChild(1).rotation = Quaternion.FromToRotation(cell.transform.GetChild(1).up, hit.normal);
+            cell.transform.localRotation *= Quaternion.FromToRotation(cell.transform.up, hit.normal);
         }
         else
         {
-            cell.transform.GetChild(1).rotation = Quaternion.FromToRotation(cell.transform.GetChild(1).up, sample.up);
+            cell.transform.localRotation *= Quaternion.FromToRotation(cell.transform.up, sample.up);
         }
+        cell.transform.parent = transform;
+        oxyInstances.Add(cell.transform, cell);
     }
 
     public void Pickup(Transform pos) {
