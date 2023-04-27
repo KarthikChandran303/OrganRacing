@@ -47,6 +47,16 @@ public class Stomach : Organ
         Spline spline = spawnPos.GetComponent<Spline>();
         CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
         Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+
+        foreach (Transform a in acidInstances.Keys)
+        {
+            if (Vector3.Distance(randomPosition, a.transform.position) < minDistanceBetweenInstances)
+            {
+                Invoke("StomachDying", 0);
+                return;
+            }
+        }
+
         GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
 
         // raycast to track
@@ -65,15 +75,6 @@ public class Stomach : Organ
         //acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 5, acid.transform.position.x + 5), acid.transform.position.y, acid.transform.position.z);
         acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
         acid.transform.parent = transform;
-
-        foreach (Transform a in acidInstances.Keys)
-        {
-            if (Vector3.Distance(acid.transform.position, a.transform.position) < minDistanceBetweenInstances) {
-                Destroy(acid);
-                Invoke("StomachDying", 0);
-                return;
-            }
-        }
 
         rumble.Play();
         acidInstances.Add(acid.transform, acid);
