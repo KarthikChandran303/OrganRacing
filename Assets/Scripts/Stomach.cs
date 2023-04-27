@@ -24,6 +24,7 @@ public class Stomach : Organ
     {
         base.Start();
         rumble = GetComponent<AudioSource>();
+        base.health = 0;
     }
 
     protected override void HealthEffects()
@@ -52,7 +53,7 @@ public class Stomach : Organ
             Spline spline = spawnPos.GetComponent<Spline>();
             CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
             Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 8, randomPosition.z);
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 4, randomPosition.z);
             //acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
             // raycast to track
             foreach (Transform a in acidInstances.Keys)
@@ -69,14 +70,19 @@ public class Stomach : Organ
             {
                 //Debug.DrawRay(randomPosition, hit.normal * 100, Color.magenta, 1000);
                 acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, hit.normal);
+                acid.transform.position = new Vector3(hit.point.x, hit.point.y + 8, Random.Range(hit.point.z - 4, hit.point.z + 4));
             }
             else
             {
                 //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
                 acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, sample.up);
+                acid.transform.position = new Vector3(sample.location.x, sample.location.y, Random.Range(sample.location.z - 4, sample.location.z + 4));
             }
-            acid.transform.position = new Vector3(randomPosition.x, randomPosition.y - 8, randomPosition.z);
-            //acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 4, acid.transform.position.x + 4), acid.transform.position.y, acid.transform.position.z);
+            if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+            {
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, hit.normal);
+                acid.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+            }
             rumble.Play();
             acid.transform.parent = transform;
             acidInstances.Add(acid.transform, acid);

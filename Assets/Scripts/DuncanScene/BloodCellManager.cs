@@ -54,11 +54,14 @@ public class BloodCellManager : MonoBehaviour
         if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
         {
             cell.transform.localRotation *= Quaternion.FromToRotation(cell.transform.up, hit.normal);
+            cell.transform.position = new Vector3(hit.point.x, hit.point.y, hit.point.z);
         }
         else
         {
             cell.transform.localRotation *= Quaternion.FromToRotation(cell.transform.up, sample.up);
+            cell.transform.position = new Vector3(sample.location.x, sample.location.y, sample.location.z);
         }
+
         cell.transform.parent = transform;
         oxyInstances.Add(cell.transform, cell);
     }
