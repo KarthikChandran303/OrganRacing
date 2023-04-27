@@ -13,8 +13,10 @@ public class Alveoli : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("alveolitrigger");
         if (other.gameObject.layer == 6)
         {
+            Debug.Log("inside");
             BloodCellManager.instance.AlveoliOxgenate();
         }
     }
