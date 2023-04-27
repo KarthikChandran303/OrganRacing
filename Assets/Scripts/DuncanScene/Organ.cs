@@ -60,6 +60,9 @@ public class Organ : MonoBehaviour
         if (health <= 0 && !isPulmanory) {
             UI.gameOver();
         }
+        if (health < 0) {
+            health = 0;
+        }
         //healthLabel.text = organName + " Health: " + (int) health;
 
         hb.UpdateHealthBar(health / maxHealth);
