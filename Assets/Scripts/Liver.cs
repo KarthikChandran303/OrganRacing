@@ -14,6 +14,7 @@ public class Liver : Organ
     public float cholesterolGenRate = 5f;
     [SerializeField] private List<GameObject> spawnablePositions;
     [SerializeField] private float minDistanceBetweenInstances = 50f;
+    [SerializeField] private int maxNumberOfSpawns = 50;
 
     protected new void Start()
     {
@@ -23,7 +24,7 @@ public class Liver : Organ
     {
         base.HealthEffects();
 
-        if (health < 300 && !dying)
+        if (health < 30 && !dying)
         {
             dying = true;
             Invoke("LiverDying", cholesterolGenRate);
@@ -36,6 +37,9 @@ public class Liver : Organ
 
     private void LiverDying()
     {
+        if(cholesterolInstances.Count == maxNumberOfSpawns) {
+            return;
+        }
         Debug.Log("im dying bro!!!!");
         GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
         Spline spline = spawnPos.GetComponent<Spline>();
@@ -46,7 +50,7 @@ public class Liver : Organ
         {
             if (Vector3.Distance(randomPosition, c.transform.position) < minDistanceBetweenInstances) {
                 Debug.Log("bye");
-                Invoke("LiverDying", 0);
+                //Invoke("LiverDying", 0);
                 return;
             }
         }

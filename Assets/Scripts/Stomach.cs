@@ -18,6 +18,7 @@ public class Stomach : Organ
     private AudioSource rumble;
 
     [SerializeField] private float minDistanceBetweenInstances = 50f;
+    [SerializeField] private int maxNumberOfSpawns = 50;
 
     protected new void Start()
     {
@@ -43,6 +44,9 @@ public class Stomach : Organ
 
     private void StomachDying()
     {
+        if(acidInstances.Count == maxNumberOfSpawns) {
+            return;
+        }
         GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
         if (spawnPos.GetComponent<Spline>()) {
             Spline spline = spawnPos.GetComponent<Spline>();
@@ -55,7 +59,7 @@ public class Stomach : Organ
             {
                 if (Vector3.Distance(randomPosition, a.transform.position) < minDistanceBetweenInstances) {
                     Debug.Log("bye");
-                    Invoke("StomachDying", 0);
+                    //Invoke("StomachDying", 0);
                     return;
                 }
             }

@@ -33,11 +33,7 @@ public class BloodCellManager : MonoBehaviour
     }
     private void Spawn() {
         if(oxyInstances.Count == maxNumberOfSpawns) {
-            foreach (Transform o in oxyInstances.Keys) {
-                Destroy(oxyInstances[o]);
-                oxyInstances.Remove(o);
-                break;
-            }
+            return;
         }
         GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
         Spline spline = spawnPos.GetComponent<Spline>();
@@ -48,7 +44,7 @@ public class BloodCellManager : MonoBehaviour
         {
             if (Vector3.Distance(randomPosition, o.transform.position) < minDistanceBetweenInstances) {
                 Debug.Log("hi");
-                Invoke("Spawn", 0);
+                //Invoke("Spawn", 0);
                 return;
             }
         }
