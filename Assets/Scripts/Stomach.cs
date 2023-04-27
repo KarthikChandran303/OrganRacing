@@ -24,7 +24,6 @@ public class Stomach : Organ
     {
         base.Start();
         rumble = GetComponent<AudioSource>();
-        base.health = 0;
     }
 
     protected override void HealthEffects()

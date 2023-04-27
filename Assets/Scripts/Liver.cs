@@ -19,7 +19,6 @@ public class Liver : Organ
     protected new void Start()
     {
         base.Start();
-        base.health = 0;
     }
     protected override void HealthEffects()
     {
