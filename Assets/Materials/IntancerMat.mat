@@ -126,6 +126,6 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ForcePos: {r: -27.550001, g: 1.3000002, b: 7.949999, a: 0}
+    - _ForcePos: {r: 27.400002, g: 275.17993, b: -727.4, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
