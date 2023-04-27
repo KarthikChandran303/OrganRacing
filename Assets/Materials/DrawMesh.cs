@@ -95,7 +95,7 @@ public class DrawMesh : MonoBehaviour
     void Update()
     {
         int kernel = compute.FindKernel("CSMain");
-        compute.SetVector("pusherPos", (pusher.position - transform.position));
+        compute.SetVector("pusherPos", (pusher.position - (transform.position * 2.0f)));
         compute.Dispatch(kernel, Mathf.CeilToInt(population / 64f), 1, 1);
         mat.SetVector("_ForcePos", pusher.position - transform.position);
         Graphics.DrawMeshInstancedIndirect(mesh, 0, mat, bounds, argsBuffer);
