@@ -38,7 +38,7 @@ public class DrawMesh : MonoBehaviour
         colorsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, population, sizeof(float) * 4);
         instanceBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, population, InstanceData.Size());
 
-        bounds = new Bounds(transform.position, Vector3.one * 80);
+        bounds = new Bounds(transform.position, Vector3.one * 500);
         var args = new uint[5];
         
         args[0] = (uint)mesh.GetIndexCount(0);
@@ -56,7 +56,7 @@ public class DrawMesh : MonoBehaviour
         {
             InstanceData data = new InstanceData();
             Vector3 pos = new Vector3((Random.Range(-range, range)) - transform.position.x, -transform.position.y, (Random.Range(-range, range) - transform.position.z));
-            Vector3 scale = new Vector3(0.3f, Random.Range(0.3f, 1.0f), 0.3f);
+            Vector3 scale = new Vector3(0.3f, Random.Range(0.3f, 3.5f), 0.3f);
             Quaternion rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
             data.matrix = Matrix4x4.TRS(pos, rotation, scale);
             instances[i] = data;
