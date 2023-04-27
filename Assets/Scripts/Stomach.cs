@@ -19,7 +19,7 @@ public class Stomach : Organ
 
     [SerializeField] private float minDistanceBetweenInstances = 50f;
 
-    protected void Start()
+    protected new void Start()
     {
         base.Start();
         rumble = GetComponent<AudioSource>();
@@ -29,12 +29,12 @@ public class Stomach : Organ
     {
         base.HealthEffects();
 
-        if (health < 100 && !dying)
+        if (health < 30 && !dying)
         {
             dying = true;
             Invoke("StomachDying", acidGenRate);
         }
-        else if (health >= 100 && dying)
+        else if (health >= 30 && dying)
         {
             dying = false;
             Invoke("CleanAcid", acidGenRate);

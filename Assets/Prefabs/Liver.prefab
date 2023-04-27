@@ -56,7 +56,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489936872444515795}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 374, y: -288.10648, z: 17.4}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_ConstrainProportionsScale: 0
@@ -89,9 +89,14 @@ MonoBehaviour:
   oxyPocket: {fileID: 2094864579957442343}
   heartManager: {fileID: 0}
   status: 0
-  cholesterolPositions: {fileID: 0}
   cholesterolPrefab: {fileID: 3247316246536641906, guid: 0d1ae5383ba271e46a38f29aefbc7fc4, type: 3}
   cholesterolGenRate: 5
+  spawnablePositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minDistanceBetweenInstances: 50
 --- !u!136 &5661092925788700808
 CapsuleCollider:
   m_ObjectHideFlags: 0
