@@ -132,6 +132,16 @@ public class BloodCellManager : MonoBehaviour
         }
     }
 
+    public void AlveoliOxgenateOne()
+    {
+        if (unoxyBloodCellCount > 0) {
+            unoxyBloodCellCount--;
+            oxyBloodCellCount++;
+            updateCellCount();
+            GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Orbit>().AddCell();
+        }
+    }
+
     public void UseBloodCell(int amount = 1)
     {
         if (amount > oxyBloodCellCount)

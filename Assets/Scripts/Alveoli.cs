@@ -6,6 +6,8 @@ public class Alveoli : MonoBehaviour
 {
     private Drive player;
 
+    private float collideTime;
+
     private void Start()
     {
         player = FindObjectOfType<Drive>();
@@ -13,11 +15,20 @@ public class Alveoli : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("alveolitrigger");
+        //Debug.Log("alveolitrigger");
         if (other.gameObject.layer == 6)
         {
-            Debug.Log("inside");
-            BloodCellManager.instance.AlveoliOxgenate();
+            BloodCellManager.instance.AlveoliOxgenateOne();
+        }
+    }
+
+    private void OnTriggerStay(Collider other) {
+        collideTime = collideTime + Time.deltaTime;
+        if (other.gameObject.layer == 6) {
+            if (collideTime > 0.25) {
+                BloodCellManager.instance.AlveoliOxgenate();
+                collideTime = 0;
+            }
         }
     }
 }
