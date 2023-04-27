@@ -38,7 +38,7 @@ public class DrawMesh : MonoBehaviour
         colorsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, population, sizeof(float) * 4);
         instanceBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, population, InstanceData.Size());
 
-        bounds = new Bounds(transform.position, Vector3.one * 1000);
+        bounds = new Bounds(transform.position, Vector3.one * 80);
         var args = new uint[5];
         
         args[0] = (uint)mesh.GetIndexCount(0);
@@ -56,7 +56,7 @@ public class DrawMesh : MonoBehaviour
         {
             InstanceData data = new InstanceData();
             Vector3 pos = new Vector3((Random.Range(-range, range)) - transform.position.x, -transform.position.y, (Random.Range(-range, range) - transform.position.z));
-            Vector3 scale = new Vector3(0.3f, Random.Range(0.5f, 5.0f), 0.3f);
+            Vector3 scale = new Vector3(0.3f, Random.Range(0.3f, 1.0f), 0.3f);
             Quaternion rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
             data.matrix = Matrix4x4.TRS(pos, rotation, scale);
             instances[i] = data;
@@ -84,9 +84,9 @@ public class DrawMesh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // int kernel = compute.FindKernel("CSMain");
-        // compute.SetVector("pusherPos", (pusher.position - transform.position));
-        // compute.Dispatch(kernel, Mathf.CeilToInt(population / 64f), 1, 1);
+        int kernel = compute.FindKernel("CSMain");
+        compute.SetVector("pusherPos", (pusher.position - transform.position));
+        compute.Dispatch(kernel, Mathf.CeilToInt(population / 64f), 1, 1);
         mat.SetVector("_ForcePos", pusher.position - transform.position);
         Graphics.DrawMeshInstancedIndirect(mesh, 0, mat, bounds, argsBuffer);
     }
