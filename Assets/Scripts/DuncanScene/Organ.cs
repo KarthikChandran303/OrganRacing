@@ -34,9 +34,13 @@ public class Organ : MonoBehaviour
 
     public Status status;
 
+    public bool isPulmanory;
+
     AudioSource oxygenateSound;
 
     AudioSource impactSound;
+
+    public UI UI;
 
     protected void Start()
     {
@@ -53,8 +57,8 @@ public class Organ : MonoBehaviour
     protected void Update()
     {
         health -= healthLossRate * Time.deltaTime * (heartManager.getCurrentRate() / 100) * heartManager.heartDeteriorationFactor;
-        if (health < 0) {
-            health = 0;
+        if (health <= 0 && !isPulmanory) {
+            UI.gameOver();
         }
         //healthLabel.text = organName + " Health: " + (int) health;
 
