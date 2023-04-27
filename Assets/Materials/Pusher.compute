@@ -1,0 +1,17 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWStructuredBuffer<float3> positions;
+RWStructuredBuffer<float4> colors;
+float3 pusherPos;
+
+[numthreads(64,1,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    float dist = distance(pusherPos.xz, positions[id.x].xz);
+    dist = step(5.0, dist);
+    // shift between two colors based upon the distance
+    colors[id.x] = lerp(float4(0, 0, 0, 1), float4(1, 0, 0, 1), dist);
+}

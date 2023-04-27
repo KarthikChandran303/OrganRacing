@@ -11,7 +11,6 @@ public class SpeedBooster : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Drive>();
-        Debug.Log(player);
     }
 
     private void OnTriggerEnter(Collider other)

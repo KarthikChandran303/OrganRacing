@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SplineMesh;
 
 public class Liver : Organ
 {
-    public GameObject cholesterolPositions;
-
     public GameObject cholesterolPrefab;
 
     private bool dying = false;
@@ -13,12 +12,14 @@ public class Liver : Organ
     Dictionary<Transform, GameObject> cholesterolInstances = new();
 
     public float cholesterolGenRate = 5f;
+    [SerializeField] private List<GameObject> spawnablePositions;
+    [SerializeField] private float minDistanceBetweenInstances = 50f;
+    [SerializeField] private int maxNumberOfSpawns = 50;
 
     protected new void Start()
     {
         base.Start();
     }
-
     protected override void HealthEffects()
     {
         base.HealthEffects();
@@ -36,19 +37,44 @@ public class Liver : Organ
 
     private void LiverDying()
     {
+        if(cholesterolInstances.Count == maxNumberOfSpawns) {
+            return;
+        }
         Debug.Log("im dying bro!!!!");
-        foreach (Transform chol in cholesterolPositions.transform)
+        GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
+        Spline spline = spawnPos.GetComponent<Spline>();
+        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+        randomPosition = new Vector3(randomPosition.x, randomPosition.y + 8, randomPosition.z);
+        foreach (Transform c in cholesterolInstances.Keys)
         {
-            // Generate a chloestrol blockage in some location that doesn't already contain one
-            if (!cholesterolInstances.ContainsKey(chol))
-            {
-                Debug.Log("i have made a sick ball");
-                GameObject cholesterol = Instantiate(cholesterolPrefab, chol.transform.position, chol.transform.rotation);
-                cholesterolInstances.Add(chol, cholesterol);
-                break;
+            if (Vector3.Distance(randomPosition, c.transform.position) < minDistanceBetweenInstances) {
+                Debug.Log("bye");
+                //Invoke("LiverDying", 0);
+                return;
             }
         }
-
+        GameObject cholesterol = Instantiate(cholesterolPrefab, randomPosition, Quaternion.identity);
+        RaycastHit hit;
+        if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+        {
+            //Debug.DrawRay(randomPosition, hit.normal * 100, Color.magenta, 1000);
+            cholesterol.transform.localRotation *= Quaternion.FromToRotation(cholesterol.transform.up, hit.normal);
+            cholesterol.transform.position = new Vector3(hit.point.x, hit.point.y + 8, Random.Range(hit.point.z - 4, hit.point.z + 4));
+        }
+        else
+        {
+            //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
+            cholesterol.transform.localRotation *= Quaternion.FromToRotation(cholesterol.transform.up, sample.up);
+            cholesterol.transform.position = new Vector3(sample.location.x, sample.location.y, Random.Range(sample.location.z - 4, sample.location.z + 4));
+        }
+        if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+        {
+            cholesterol.transform.localRotation *= Quaternion.FromToRotation(cholesterol.transform.up, hit.normal);
+            cholesterol.transform.position = new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
+        }
+        cholesterol.transform.parent = transform;
+        cholesterolInstances.Add(cholesterol.transform, cholesterol);
         // Continue dying if dying
         if (dying)
         {
