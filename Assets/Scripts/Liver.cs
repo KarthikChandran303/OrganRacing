@@ -54,9 +54,7 @@ public class Liver : Organ
                 return;
             }
         }
-        randomPosition = new Vector3(randomPosition.x, randomPosition.y - 5.5f, randomPosition.z);
         GameObject cholesterol = Instantiate(cholesterolPrefab, randomPosition, Quaternion.identity);
-        cholesterol.transform.localPosition = new Vector3(Random.Range(cholesterol.transform.position.x - 4, cholesterol.transform.position.x + 4), cholesterol.transform.position.y, cholesterol.transform.position.z);
         RaycastHit hit;
         if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
         {
@@ -68,6 +66,8 @@ public class Liver : Organ
             //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
             cholesterol.transform.localRotation *= Quaternion.FromToRotation(cholesterol.transform.up, sample.up);
         }
+        cholesterol.transform.position = new Vector3(randomPosition.x, randomPosition.y - 5.5f, randomPosition.z);
+        //cholesterol.transform.localPosition = new Vector3(Random.Range(cholesterol.transform.position.x - 4, cholesterol.transform.position.x + 4), cholesterol.transform.position.y, cholesterol.transform.position.z);
         cholesterol.transform.parent = transform;
         cholesterolInstances.Add(cholesterol.transform, cholesterol);
         // Continue dying if dying

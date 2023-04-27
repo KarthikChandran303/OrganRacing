@@ -52,7 +52,7 @@ public class Stomach : Organ
             Spline spline = spawnPos.GetComponent<Spline>();
             CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
             Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 4, randomPosition.z);
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 8, randomPosition.z);
             //acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
             // raycast to track
             foreach (Transform a in acidInstances.Keys)
@@ -63,9 +63,7 @@ public class Stomach : Organ
                     return;
                 }
             }
-            randomPosition = new Vector3(randomPosition.x, randomPosition.y - 4, randomPosition.z);
             GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
-            acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 4, acid.transform.position.x + 4), acid.transform.position.y, acid.transform.position.z);
             RaycastHit hit;
             if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
             {
@@ -77,6 +75,8 @@ public class Stomach : Organ
                 //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
                 acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, sample.up);
             }
+            acid.transform.position = new Vector3(randomPosition.x, randomPosition.y - 8, randomPosition.z);
+            //acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 4, acid.transform.position.x + 4), acid.transform.position.y, acid.transform.position.z);
             rumble.Play();
             acid.transform.parent = transform;
             acidInstances.Add(acid.transform, acid);
