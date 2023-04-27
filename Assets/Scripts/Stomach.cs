@@ -29,12 +29,12 @@ public class Stomach : Organ
     {
         base.HealthEffects();
 
-        if (health < 30 && !dying)
+        if (health < 100 && !dying)
         {
             dying = true;
             Invoke("StomachDying", acidGenRate);
         }
-        else if (health >= 30 && dying)
+        else if (health >= 100 && dying)
         {
             dying = false;
             Invoke("CleanAcid", acidGenRate);
@@ -44,45 +44,47 @@ public class Stomach : Organ
     private void StomachDying()
     {
         GameObject spawnPos = spawnablePositions[Random.Range(0, spawnablePositions.Count)];
-        Spline spline = spawnPos.GetComponent<Spline>();
-        CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
-        Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
-
-        foreach (Transform a in acidInstances.Keys)
-        {
-            if (Vector3.Distance(randomPosition, a.transform.position) < minDistanceBetweenInstances)
+        if (spawnPos.GetComponent<Spline>()) {
+            Spline spline = spawnPos.GetComponent<Spline>();
+            CurveSample sample = spline.GetSample(Random.Range(0.25f, spline.nodes.Count - 1.25f));
+            Vector3 randomPosition = spawnPos.transform.TransformPoint(sample.location);
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y + 4, randomPosition.z);
+            //acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
+            // raycast to track
+            foreach (Transform a in acidInstances.Keys)
             {
-                Invoke("StomachDying", 0);
-                return;
+                if (Vector3.Distance(randomPosition, a.transform.position) < minDistanceBetweenInstances) {
+                    Debug.Log("bye");
+                    Invoke("StomachDying", 0);
+                    return;
+                }
             }
+            randomPosition = new Vector3(randomPosition.x, randomPosition.y - 4, randomPosition.z);
+            GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
+            acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 4, acid.transform.position.x + 4), acid.transform.position.y, acid.transform.position.z);
+            RaycastHit hit;
+            if (Physics.Raycast(randomPosition, Vector3.down, out hit, 1 << 12))
+            {
+                //Debug.DrawRay(randomPosition, hit.normal * 100, Color.magenta, 1000);
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, hit.normal);
+            }
+            else
+            {
+                //Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
+                acid.transform.localRotation *= Quaternion.FromToRotation(acid.transform.up, sample.up);
+            }
+            rumble.Play();
+            acid.transform.parent = transform;
+            acidInstances.Add(acid.transform, acid);
+            // Continue dying if dying
+            if (dying)
+            {
+                Invoke("StomachDying", acidGenRate);
+            }
+        } else {
+            //For in case we want acid in chambers as well
         }
-
-        GameObject acid = Instantiate(acidPrefab, randomPosition, Quaternion.identity);
-
-        // raycast to track
-        RaycastHit hit;
-        if (Physics.Raycast(randomPosition + new Vector3(0, 1, 0), Vector3.down, out hit, 1 << 12))
-        {
-            Debug.DrawRay(randomPosition, hit.normal * 100, Color.magenta, 1000);
-            acid.transform.localRotation = Quaternion.FromToRotation(acid.transform.up, hit.normal);
-        }
-        else
-        {
-            Debug.DrawRay(randomPosition, sample.up * 100, Color.green, 1000);
-            acid.transform.localRotation = Quaternion.FromToRotation(acid.transform.up, sample.up);
-        }
-
-        //acid.transform.localPosition = new Vector3(Random.Range(acid.transform.position.x - 5, acid.transform.position.x + 5), acid.transform.position.y, acid.transform.position.z);
-        acid.transform.localScale = new Vector3(acid.transform.localScale.x / 2, acid.transform.localScale.y / 2, acid.transform.localScale.z / 2);
-        acid.transform.parent = transform;
-
-        rumble.Play();
-        acidInstances.Add(acid.transform, acid);
-        // Continue dying if dying
-        if (dying)
-        {
-            Invoke("StomachDying", acidGenRate);
-        }
+        
     }
 
     private void CleanAcid()
