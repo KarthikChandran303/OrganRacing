@@ -8,6 +8,15 @@ public class PulmanoryV2 : Organ
 
     public GameObject deactivatedBoosters;
 
+    [SerializeField] HealthBar myHealthBar;
+
+    private void Update()
+    {
+        base.Update();
+
+        myHealthBar.UpdateHealthBar(health / maxHealth);
+    }
+
     protected override void HealthEffects()
     {
         if (health < 10) {
