@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Booster
+  - HeartManager
+  - Organ
+  - UI
+  - PauseUI
+  - Alveoli
+  - UIManager
   layers:
   - Default
   - TransparentFX
@@ -18,11 +24,11 @@ TagManager:
   - BloodCellProjectile
   - whatIsGround
   - Organ
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Track
+  - LayerMask
+  - SeeThrough
+  - OrganFloor
+  - Alveoli
   - 
   - 
   - 
