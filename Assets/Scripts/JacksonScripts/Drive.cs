@@ -14,7 +14,7 @@ public class Drive : MonoBehaviour
     public float reverseAccel = 4f;
     public float turnStrength = 60f;
     public float driftStrength = 120f;
-    public float turnAngle = 30f;
+    public float turnAngle = 50f;
     public float timer = 0;
     public float speedTimer = 0;
     public float turnTimer = 0;
@@ -29,7 +29,7 @@ public class Drive : MonoBehaviour
     private float speedInput;
     private float turnInput;
     private float driftDirection;
-    private bool stationaryTurning;
+    //private bool stationaryTurning;
     public HeartRate heartManager;
     [SerializeField] TMP_Text speedometer;
 
@@ -71,6 +71,8 @@ public class Drive : MonoBehaviour
     [SerializeField] ParticleSystem driftSparks_3B;
     [SerializeField] ParticleSystem boostFX;
     [SerializeField] ParticleSystem dustFX;
+    [SerializeField] ParticleSystem highSpeedLines;
+    [SerializeField] ParticleSystem lowSpeedLines;
 
 
     // Start is called before the first frame update
@@ -89,6 +91,15 @@ public class Drive : MonoBehaviour
 
         if (speedometer != null)
             speedometer.text = ((int) sphere.velocity.magnitude).ToString();
+
+        //if speed is above ~35~ then activate
+        if (sphere.velocity.magnitude > 35f) 
+        {
+            lowSpeedLines.Play();
+        }
+        else {
+            lowSpeedLines.Stop();
+        }
 
         speedInput = 0f;
 
@@ -123,21 +134,23 @@ public class Drive : MonoBehaviour
         //Pass Animation Values
         bikeAnim.SetFloat("BlendX", turnInput);
         bikeAnim.SetFloat("BlendY", dir);
-        racerAnim.SetFloat("TurnBlend", turnInput);
+        racerAnim.SetFloat("BlendX", turnInput);
+        racerAnim.SetFloat("BlendY", dir);
 
         if (Input.GetButtonDown("Drift")) {
             sphere.AddForce(transform.up * 20000f);
         }
 
-        if (Input.GetAxis("Drift") > 0 && turnInput != 0) {
+        if (Input.GetButton("Drift") && turnInput != 0) { //Should it be 'Input.GetAxis("Drift") > 0' or what's currently there?
             driftCheck = true;
         }
         else {
             driftCheck = false;
         }
 
-        //Calculate Angular Drag based on current velocity
-        float angularDrag = Mathf.Min(10 / (sphere.GetPointVelocity(sphere.position).magnitude + 1), .7f);
+        //Calculate Angular Drag for bike based on current velocity
+        //float angularDrag = 1 + Mathf.Log((sphere.velocity.magnitude) + 1 , 500f);
+
 
         if (driftCheck && !drifting && turnInput != 0) {
             drifting = true;
@@ -148,55 +161,54 @@ public class Drive : MonoBehaviour
             }
             driftCheck = false;
         } 
-        else { //Normal Turning
-            
-            //Debug.Log(angularDrag);
+        else {
 
-            if (dir > 0)
+            // Normal Turning //
+
+            if (dir > 0) //
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * 3f * angularDrag));
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime)); // / angularDrag));
             }
-            else if (dir == 0 && Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) //Turn slowly when using both forward and reverse input, don't apply angular drag
+            else if (dir == 0 && Input.GetAxis("Forward") > 0 && Input.GetAxis("Backward") > 0) //Turn slowly when using both forward and reverse input
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * 1f));
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime)); // / angularDrag));
             }
-            else if (dir < 0) //Turn quickly and opposite direction if backing up, don't apply angular drag
-            { 
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * -2f));
+            else if (dir < 0) //Turn quickly and opposite direction if backing up
+            {
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (turnInput * turnStrength * Time.deltaTime * -1f)); // / angularDrag));
             }
             //else do nothing
             
             transform.position = sphere.transform.position;
         }
 
-        //Turn Timer & Tilting
+        // Turn Timer & Tilting //
         float rotStep = 20f * Time.deltaTime;
-        if (turnInput != 0 && turnTimer < maxTurnTime)
+        if (turnInput != 0 && !drifting) //&& turnTimer < maxTurnTime)
         {
-            turnTimer += Time.deltaTime;
-            float driftMultiplier = driftCheck ? 3f : 5f;
+            //turnTimer += Time.deltaTime;
             if (turnInput > 0) //&& isBike
             {
-                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, -30), driftMultiplier * rotStep);
+                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, -turnAngle), 10f * turnInput * rotStep);
             }
             else if (turnInput < 0) //&& isBike
             {
-                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, 30), driftMultiplier * rotStep);
+                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, turnAngle), 10f * -turnInput * rotStep);
             }
         }
-        else if (turnInput == 0) //Tilt bike when not turning to be upright
+        else if (turnInput == 0 && !drifting) //Tilt bike when not turning to be upright
         {
-            turnTimer = 0;
-            meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, 0), 4f * rotStep);
+            //turnTimer = 0;
+            meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, 0), rotStep);
         }
 
-        //Stationary Turning
+        // Stationary Turning // **DEPRECATED**
         //if (stationaryTurning && turnInput != 0) {
         //    transform.Rotate(0, 2f * Time.deltaTime * turnInput * turnStrength, 0, Space.Self);
         //    transform.position = sphere.transform.position;
         //}
 
-        // Wheelie code
+        // Wheelie code //
         if (isSpeedBoosted) {
             meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(-30, 0, 0), 4f * rotStep);
         }
@@ -204,10 +216,21 @@ public class Drive : MonoBehaviour
             meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, 0), 4f * rotStep);
         }
 
+        // Drifting Code //
         if (drifting)
         {
+            //Drift Leaning
+            if (driftDirection > 0)
+            {
+                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, -turnAngle), 10f * rotStep);
+            }
+            else if (driftDirection < 0)
+            {
+                meshBody.transform.localRotation = Quaternion.RotateTowards(meshBody.transform.localRotation, Quaternion.Euler(0, 0, turnAngle), 10f * rotStep);
+            }
 
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime * 3f * angularDrag));
+
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + transform.up * (driftDirection * driftStrength * Time.deltaTime)); // / angularDrag));
             transform.position = sphere.transform.position;
             driftTime = driftTime + Time.deltaTime;
             if (driftTime > 3f)
@@ -245,6 +268,7 @@ public class Drive : MonoBehaviour
             }
             else if (driftTime > .75f)
             {
+
                 //Update Effects
                 if (!driftSparks_1B.isPlaying)
                 {
@@ -295,6 +319,9 @@ public class Drive : MonoBehaviour
 
     public void DriftBoost() {
         drifting = false;
+        
+
+        //Check boost strength
         if (driftTime > 3) {
             isDriftBoosted = true;
             boostTime = 3;
@@ -320,6 +347,10 @@ public class Drive : MonoBehaviour
         wheelsSource.clip = wheelsNormal;
         wheelsSource.Play();
         driftClickSource.clip = null;
+
+        //Play Boost Speed Lines
+        if (isDriftBoosted)
+            highSpeedLines.Play();
     }
 
     private void FixedUpdate() {

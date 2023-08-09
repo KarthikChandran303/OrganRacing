@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BloodCell : MonoBehaviour
 {
-    public GameObject minimapIcon;
+    //public GameObject minimapIcon;
 
     private void Start()
     {
-        Instantiate(minimapIcon, transform);
+        //Instantiate(minimapIcon, transform);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,10 +20,10 @@ public class BloodCell : MonoBehaviour
             {
                 BloodCellManager.instance.AddBloodCell();
                 Destroy(gameObject);
-            } else
-            {
-                Debug.Log("sorry im full of blood cell");
-            }
+            }// else
+           // {
+                //Debug.Log("sorry im full of blood cell");
+           // }
         }
     }
 }

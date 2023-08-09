@@ -129,6 +129,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _UseHDR: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _fresnelpower: 0.12
@@ -136,8 +137,9 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColor: {r: 0.52817, g: 0.3137255, b: 0.6901961, a: 0}
+    - _DiffuseColor: {r: 0.6128328, g: 0.23921567, b: 0.7176471, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HDRColor: {r: 0, g: 3.32549, b: 2.039216, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.9245283, g: 0.7980598, b: 0.8916127, a: 0}
     - _fresnelcolor: {r: 0.8867924, g: 0.6065326, b: 0.8422643, a: 0}
